@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="430c0ec0-47e6-4a9e-ab64-53eb5d938a7b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/admins/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/admins/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/7r1Y24bf2Sh3jV0YttjvD7scNoV1oaJYF0th8QX9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/8Oa5adG1p41lLlNHhThTeRMiqoMzWdcuQGmKNG2P" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/8PSyJtO8Rov0SMFbRwUuWcj16KdGEg7vOhwa9qCu" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/Aiq21xChF44l7uixD3A9k6QayqdJtAdF7ZrJdNRN" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/VKCaDj4I7gJEnpyx71t74mlNJ4TF1mHvXksQPJGZ" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/e43taBrrB4Z572Eu3PEczIomMxmogwIER2kZeGdw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/g4ymC21GwifeIXJpiMfeIwfWxZmIihkig1l7JPQi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/rSi3kv5il5GjlinIL8e3D5UEK84fnElNFmJKaXQq" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/sO1xiNSdicLCxjVsVkt2a4rZF7LGZzAwlKiLXnMw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/unjyawfIiaOsI7uwU486fqjyVd7GM4Z2w6ASGF6p" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/xR6ztlEiUdFUZ23bYdmXczZgHnvBySrly3E07KWu" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,11 +27,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name=".env" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.env">
+      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/indexs/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+            <state relative-caret-position="-795" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/admin/admins/login.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="61" column="26" lean-forward="true" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -35,6 +52,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/resources/views/admin/admins/login.blade.php" />
       </list>
     </option>
   </component>
@@ -155,13 +173,28 @@
             <path>
               <item name="MyBlogAdmin" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyBlogAdmin" type="462c0819:PsiDirectoryNode" />
-              <item name="bootstrap" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyBlogAdmin" type="b2602c69:ProjectViewProjectNode" />
               <item name="MyBlogAdmin" type="462c0819:PsiDirectoryNode" />
-              <item name="bootstrap" type="462c0819:PsiDirectoryNode" />
-              <item name="cache" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MyBlogAdmin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MyBlogAdmin" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MyBlogAdmin" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MyBlogAdmin" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+              <item name="admins" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -200,12 +233,12 @@
       <workItem from="1567332070246" duration="1324000" />
       <workItem from="1567578344615" duration="3837000" />
       <workItem from="1567582546930" duration="228000" />
-      <workItem from="1567582942611" duration="987000" />
+      <workItem from="1567582942611" duration="3554000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6376000" />
+    <option name="totallyTimeSpent" value="8943000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -217,7 +250,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.36842105" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.28779396" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26126608" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -252,8 +285,20 @@
     <entry file="file://$PROJECT_DIR$/storage/logs/laravel.log" />
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
+        <state relative-caret-position="324">
           <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/indexs/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-795" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/admins/login.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="61" column="26" lean-forward="true" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
         </state>
       </provider>
     </entry>
