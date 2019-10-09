@@ -10,10 +10,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="{{loadEdition('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
+{{--    <link href="{{loadEdition('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/animate.min.css')}}" rel="stylesheet">
-    <link href="{{loadEdition('/admin/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{loadEdition('/admin/css/style.min.css')}}" rel="stylesheet">--}}
+    <link href="{{URL::asset('admin/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('admin/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('admin/css/animate.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('admin/css/style.min.css')}}" rel="stylesheet">
     @yield('css')
 </head>
 <body class="gray-bg">
@@ -21,8 +25,11 @@
     @include('flash::message')
     @yield('content')
 </div>
-<script src="{{loadEdition('/js/jquery.min.js')}}"></script>
-<script src="{{loadEdition('/admin/js/bootstrap.min.js')}}"></script>
+{{--<script src="{{loadEdition('/js/jquery.min.js')}}"></script>
+<script src="{{loadEdition('/admin/js/bootstrap.min.js')}}"></script>--}}
+<script src="{{URL::asset('js/jquery.min.js')}}"></script>
+<script src="{{URL::asset('admin/js/bootstrap.min.js')}}"></script>
+<script src="{{URL::asset('js/plugins/layer/layer.min.js')}}"></script>
 @yield('js')
 <script>
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);

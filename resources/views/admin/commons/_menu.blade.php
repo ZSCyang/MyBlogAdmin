@@ -10,7 +10,7 @@
             <li class="nav-header text-center">
                 <div class="dropdown profile-element">
                                 <span>
-                                    <img alt="image" class="img-circle" src="{{$admin->avatr}}" width="64"/>
+                                    <img alt="image" class="img-circle" src="http://localhost/MyBlogAdmin/public/{{$admin->avatr}}" width="64"/>
                                 </span>
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">

@@ -6,11 +6,16 @@
     <meta name="keywords" content="@yield('title', config('app.name', 'Laravel'))">
     <meta name="description" content="@yield('title', config('app.name', 'Laravel'))">
     <link rel="shortcut icon" href="/favicon.ico">
-    <link href="{{loadEdition('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
+{{--    <link href="{{loadEdition('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/animate.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/style.min.css')}}" rel="stylesheet">
-    <link href="{{loadEdition('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{loadEdition('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">--}}
+    <link href="{{URL::asset('admin/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('admin/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('admin/css/animate.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('admin/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeIn">
