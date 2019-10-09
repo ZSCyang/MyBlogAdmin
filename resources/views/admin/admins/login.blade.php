@@ -6,16 +6,11 @@
     <title>后台登录 - {{ config('app.name', 'Laravel') }}</title>
     <meta name="keywords" content="后台登录">
     <meta name="description" content="后台登录">
-{{--    <link href="{{loadEdition('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{loadEdition('/admin/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/animate.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/style.min.css')}}" rel="stylesheet">
-    <link href="{{loadEdition('/admin/css/login.min.css')}}" rel="stylesheet">--}}
-    <link href="{{URL::asset('admin/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('admin/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('admin/css/animate.min.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('admin/css/style.min.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('/admin/css/login.min.css')}}" rel="stylesheet">
+    <link href="{{loadEdition('/admin/css/login.min.css')}}" rel="stylesheet">
     <script>
         if(window.top!==window.self){window.top.location=window.location};
     </script>
