@@ -9,25 +9,25 @@
         <ul class="nav" id="side-menu">
             <li class="nav-header text-center">
                 <div class="dropdown profile-element">
-                                <span>
-                                    <img alt="image" class="img-circle" src="{{$admin->avatr}}" width="64"/>
-                                </span>
-                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="clear">
-                                <span class="block m-t-xs">
-                                    <strong class="font-bold">{{$admin->name}}</strong>
-                                </span>
-                                <span class="text-muted text-xs block">
-                                    @foreach($admin->roles as $role)
-                                      {{$role->name}}
-                                    @endforeach
-                                    <b class="caret"></b>
-                                </span>
-                                </span>
-                                </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="J_menuItem" href="form_avatar.html">修改头像</a></li>
-                        <li><a class="J_menuItem" href="form_avatar.html">修改密码</a></li>
+                    <span>
+                        <img alt="image" class="img-circle" src="{{$admin->avatr}}" width="64"/>
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <span class="clear">
+                    <span class="block m-t-xs">
+                        <strong class="font-bold">{{$admin->name}}</strong>
+                    </span>
+                    <span class="text-muted text-xs block">
+                        @foreach($admin->roles as $role)
+                          {{$role->name}}
+                        @endforeach
+                        <b class="caret"></b>
+                    </span>
+                    </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs setting">
+                        <li class="aaa"><a class="J_menuItem" href="{{route('admins.editAvatr')}}">修改头像</a></li>
+                        <li class="aaa"><a class="J_menuItem" href="{{route('admins.changePsw')}}">修改密码</a></li>
                         <li class="divider"></li>
                         <li><a href="{{route('admin.logout')}}">安全退出</a></li>
                     </ul>
@@ -71,3 +71,12 @@
     </div>
 </nav>
 <!--左侧导航结束-->
+
+<!--点击修改头像或者密码后引导块消失-->
+<script src="{{loadEdition('/js/jquery.min.js')}}"></script>
+<script>
+    $(".J_menuItem").click(function(){
+        $(".dropdown").removeClass("open");
+        $(".dropdown-toggle").attr("aria-expanded",false);
+    });
+</script>

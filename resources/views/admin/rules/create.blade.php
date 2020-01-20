@@ -11,12 +11,12 @@
     <div class="col-sm-12">
         <div class="ibox-title">
             <h5>添加权限</h5>
+            <div class="ibox-tools" style="margin-top:-5px;">
+                <a class="menuid btn btn-primary btn-sm" href="javascript:history.go(-1)">返回</a>
+                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>刷新</button>
+            </div>
         </div>
         <div class="ibox-content">
-            <a href="{{route('rules.index')}}">
-                <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-plus-circle"></i> 权限管理
-                </button>
-            </a>
             <div class="hr-line-dashed m-t-sm m-b-sm"></div>
             <form class="form-horizontal m-t-md" action="{{route('rules.store')}}" method="POST">
                 <div class="form-group">

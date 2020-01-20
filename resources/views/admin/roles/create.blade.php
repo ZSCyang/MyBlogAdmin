@@ -4,10 +4,12 @@
     <div class="col-sm-12">
         <div class="ibox-title">
             <h5>添加角色</h5>
+            <div class="ibox-tools" style="margin-top:-5px;">
+                <a class="menuid btn btn-primary btn-sm" href="javascript:history.go(-1)">返回</a>
+                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>刷新</button>
+            </div>
         </div>
         <div class="ibox-content">
-            <a class="menuid btn btn-primary btn-sm" href="javascript:history.go(-1)">返回</a>
-            <a href="{{route('roles.index')}}"><button class="btn btn-primary btn-sm" type="button"><i class="fa fa-plus-circle"></i> 角色管理</button></a>
             <div class="hr-line-dashed m-t-sm m-b-sm"></div>
             <form class="form-horizontal m-t-md" action="{{route('roles.store')}}" method="post">
                 {!! csrf_field() !!}

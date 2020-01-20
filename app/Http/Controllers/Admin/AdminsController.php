@@ -107,10 +107,10 @@ class AdminsController extends BaseController
 
         $admin->delete();
 
+        //flash('删除成功')->success()->important();
+        //return redirect()->route('admins.index');
 
-        flash('删除成功')->success()->important();
-
-        return redirect()->route('admins.index');
+        return $this->formatResponse(200, '删除成功');
     }
 
     /**
@@ -148,13 +148,16 @@ class AdminsController extends BaseController
      */
     public function loginHandle(AdminLoginRequest $request)
     {
-       $result = $this->adminsService->login($request);
+        $result = $this->adminsService->login($request);
 
         if(!$result)
         {
             return viewError('登录失败','login');
         }
 
+        //将当前账号id存入到session
+        $admin_id = $result -> id;
+        $request->session()->put('admin_id',$admin_id);
         return viewError('登录成功!','index.index','success');
     }
 
@@ -162,10 +165,77 @@ class AdminsController extends BaseController
      * 退出登录
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
         $this->adminsService->logout();
-
+        $request->session()->put('admin_id',null);
         return redirect()->route('login');
+    }
+
+    /**
+     * 修改头像页面
+     * Author jintao.yang
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function editAvatr(Request $request){
+
+        $adminId = session('admin_id');
+        $admin = $this->adminsService->ById($adminId);
+        $avatr = $admin -> avatr;
+
+        return view('admin.admins.editAvatr',compact('avatr'));
+    }
+
+
+    /**
+     * 提交修改头像
+     * Author jintao.yang
+     * @param Request $request
+     * @return int
+     */
+    public function post_changeAvatr(Request $request){
+
+        $adminId = session('admin_id');
+        $photo = $this->adminsService->uploadAvatrs($request,$adminId);
+        if($photo) {
+            flash('更新头像成功')->success()->important();
+        }else{
+            flash('更新头像失败')->error()->important();
+        }
+        return redirect()->route('admins.editAvatr');
+    }
+
+    /**
+     * 修改密码页面
+     * Author jintao.yang
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function changePsw(Request $request){
+
+        return view('admin.admins.changePsw');
+
+    }
+
+
+    /**
+     * 后台修改密码
+     * Author jintao.yang
+     * @param Request $request
+     * @return int
+     */
+    public function post_changePsw(Request $request){
+        $adminId = session('admin_id');
+        $result =  $this->adminsService->changePwd($request,$adminId);
+        if($result['code'] == 1){
+            flash('密码更改成功')->success()->important();
+            $this->adminsService->logout();
+            $request->session()->put('admin_id', null);
+            return redirect()->route('login');
+        }else{
+            flash($result['msg'])->error()->important();
+            return redirect()->route('admins.changePsw');
+        }
     }
 }

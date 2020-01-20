@@ -101,9 +101,11 @@ class RulesController extends BaseController
 
         $rule->delete();
 
-        flash('删除成功')->success()->important();
+        //flash('删除成功')->success()->important();
 
-        return redirect()->route('rules.index');
+        //return redirect()->route('rules.index');
+
+        return $this->formatResponse(200, '删除成功');
     }
 
     /**

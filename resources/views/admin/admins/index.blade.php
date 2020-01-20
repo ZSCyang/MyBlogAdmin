@@ -4,9 +4,11 @@
     <div class="col-sm-12">
         <div class="ibox-title">
             <h5>管理员管理</h5>
+            <div class="ibox-tools" style="margin-top:-5px;">
+                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>刷新</button>
+            </div>
         </div>
         <div class="ibox-content">
-            <a class="menuid btn btn-primary btn-sm" href="javascript:history.go(-1)">返回</a>
             <a href="{{route('admins.create')}}" link-url="javascript:void(0)"><button class="btn btn-primary btn-sm" type="button"><i class="fa fa-plus-circle"></i> 添加管理员</button></a>
             <form method="post" action="{{route('admins.index')}}" name="form">
                 <table class="table table-striped table-bordered table-hover m-t-md">
@@ -46,8 +48,10 @@
                                     <span class="text-danger">锁定</span>
                                 @endif
                             </td>
+
                             <td class="text-center">
-                                <div class="btn-group">
+                                @if($item->id != 1)
+                                <div>
                                     <a href="{{route('admins.edit',$item->id)}}">
                                         <button class="btn btn-primary btn-xs" type="button"><i class="fa fa-paste"></i> 修改</button>
                                     </a>
@@ -56,9 +60,13 @@
                                     @else
                                             <a href="{{route('admins.status',['status'=>2,'id'=>$item->id])}}"><button class="btn btn-warning btn-xs" type="button"><i class="fa fa-warning"></i> 禁用</button></a>
                                     @endif
-                                    <a href="{{route('admins.delete',$item->id)}}"><button class="btn btn-danger btn-xs" type="button"><i class="fa fa-trash-o"></i> 删除</button></a>
+                                    {{--<a href="{{route('admins.delete',$item->id)}}"><button class="btn btn-danger btn-xs" type="button"><i class="fa fa-trash-o"></i> 删除</button></a>--}}
+                                   {{--<a href="{{route('admins.delete',$item->id)}}" onclick="return confirm_remind();" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 删除</a>--}}
+                                    <a href="javascript:void(0);" onclick="javascript:return delete_ajax('/admin/admins/delete/{{$item->id}}','您确定删除该管理员吗？');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 删除</a>
+
                                 </div>
                             </td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>

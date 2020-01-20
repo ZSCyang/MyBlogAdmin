@@ -12,6 +12,9 @@
     <div class="col-sm-12">
         <div class="ibox-title">
             <h5>权限列表</h5>
+            <div class="ibox-tools" style="margin-top:-5px;">
+                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>刷新</button>
+            </div>
         </div>
         <div class="ibox-content">
             <a href="{{route('rules.create')}}" link-url="javascript:void(0)"><button class="btn btn-primary btn-sm" type="button"><i class="fa fa-plus-circle"></i> 添加权限</button></a>
@@ -53,11 +56,12 @@
                             <button class="btn btn-warning btn-xs" type="button"><i class="fa fa-warning"></i> 不显示</button>
                         </a>
                         @endif
-                        <form class="form-common" action="{{route('rules.destroy',$item['id'])}}" method="post">
+                        {{--<form class="form-common" action="{{route('rules.destroy',$item['id'])}}" method="post">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-trash-o"></i> 删除</button>
-                        </form>
+                        </form>--}}
+                        <a href="javascript:void(0);" onclick="javascript:return delete_ajax('/admin/rules/destroy/{{$item['id']}}','您确定删除该权限吗？');" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> 删除</a>
                     </td>
                 </tr>
                 @endforeach

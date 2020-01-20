@@ -45,7 +45,7 @@
                         <label class="col-sm-2 control-label">所属角色：</label>
                         <div class="input-group col-sm-2">
                             @foreach($roles as $k=>$item)
-                                <label><input type="checkbox" name="role_id[]" value="{{$item->id}}" @if($item->id == old('role_id')) checked="checked" @endif> {{$item->name}}</label><br/>
+                                <label><input type="radio" name="role_id[]" value="{{$item->id}}" @if($item->id == old('role_id')) checked="checked" @endif> {{$item->name}}</label><br/>
                             @endforeach
                             @if ($errors->has('role_id'))
                                 <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>{{$errors->first('role_id')}}</span>

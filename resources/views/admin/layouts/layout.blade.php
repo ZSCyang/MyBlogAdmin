@@ -14,6 +14,7 @@
     <link href="{{loadEdition('/admin/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/animate.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
     @yield('css')
 </head>
 <body class="gray-bg">
@@ -23,6 +24,9 @@
 </div>
 <script src="{{loadEdition('/js/jquery.min.js')}}"></script>
 <script src="{{loadEdition('/admin/js/bootstrap.min.js')}}"></script>
+<script src="{{loadEdition('/js/common.js')}}"></script>
+<script src="{{URL::asset('/js/plugins/layer/layer.min.js')}}"></script>
+<script src="{{URL::asset('/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
 @yield('js')
 <script>
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);

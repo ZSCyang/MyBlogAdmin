@@ -150,7 +150,8 @@ class AdminsService
         //记录登录操作记录
         $this->actionLogsService->loginActionLogCreate($request,true);
 
-        return true;
+        //return true;
+        return $admin;
     }
 
     /**
@@ -161,4 +162,60 @@ class AdminsService
     {
         return Auth::guard('admin')->logout();
     }
+
+
+    /**
+     * 更换头像
+     * Author jintao.yang
+     * @param $request
+     * @param $adminId
+     * @return bool
+     */
+    public function uploadAvatrs($request,$adminId){
+        $admin = $this->adminsRepository->ById($adminId);
+        //上传头像
+        if ($request->is_update == 2) {
+            $result = $this->uploader->save_base64($request->avatr, 'avatrs');
+            if ($result) {
+                //$admin->update(['avatr' => $result['path']]);
+                $admin->avatr = $result['path'];
+                $admin->save();
+                return $result['path'];
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * 更改密码
+     * Author jintao.yang
+     * @param $request
+     * @param $adminId
+     */
+    public function changePwd($request,$adminId){
+        $result = [];
+        $admin = $this->adminsRepository->ById($adminId);
+        $oldPwd = $request->oldPwd;
+        $newPwd = $request->newPwd;
+        $rePwd = $request->rePwd;
+
+        if($newPwd != $rePwd){
+            $result['code'] = 2;
+            $result['msg'] = "新密码和确认密码不一致";
+        }else if(!Hash::check($oldPwd, $admin->password)){
+            $result['code'] = 4;
+            $result['msg'] = "原始密码错误";
+        }else{
+            $admin->password = Hash::make($newPwd);
+            $admin->save();
+            $result['code'] = 1;
+            $result['msg'] = "密码更改成功";
+        }
+        return $result;
+
+    }
+
 }

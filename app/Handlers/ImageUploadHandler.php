@@ -56,4 +56,33 @@ class ImageUploadHandler
             'path' => "/$folder_name/$filename"
         ];
     }
+
+
+    /**
+     * 上传base64的图片
+     * Author jintao.yang
+     * @param $base64_file
+     * @param $folder
+     * @return array
+     */
+    public function save_base64($base64_file, $folder){
+        //去除头部，只要base的内容
+        $base64 = trim($base64_file);
+        $base64 = substr(strstr($base64,','),1);
+        $img = base64_decode($base64);
+
+        // 文件夹切割能让查找效率更高。
+        $folder_name = "uploads/images/$folder/" . date("Ym", time()) . '/'.date("d", time()).'/';
+        //文件目录不存在则创建
+        is_dir($folder_name) OR mkdir($folder_name, 0777, true);
+
+        //保存的图片名
+        $filename = $filename = time() . '_' . str_random(10) . '.jpg';
+        $upload_path = public_path() . '/'.$folder_name.$filename;
+        //移动图片到指定文件夹
+        file_put_contents($upload_path, $img);//返回的是字节数
+        return [
+            'path' => "/$folder_name/$filename"
+        ];
+    }
 }

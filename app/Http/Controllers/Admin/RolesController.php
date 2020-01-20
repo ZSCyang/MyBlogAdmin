@@ -82,9 +82,10 @@ class RolesController extends BaseController
 
         $role->delete();
 
-        flash('删除成功')->success()->important();
+        //flash('删除成功')->success()->important();
 
-        return redirect()->route('roles.index');
+        //return redirect()->route('roles.index');
+        return $this->formatResponse(200, '删除成功');
     }
 
     /**

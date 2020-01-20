@@ -23,12 +23,22 @@
                         @if($item->type == 1)
                         <tr>
                             <td class="text-center">{{$item->id}}</td>
-                            <td class="text-center">{{$item->admin->name}}</td>
-                            <td class="text-center">
-                                @foreach($item->admin->roles as $role)
-                                    {{$role->name}}
-                                @endforeach
-                            </td>
+                            @if(empty($item->admin->name))
+                                <td class="text-center">未知</td>
+                                @else
+                                <td class="text-center">{{$item->admin->name}}</td>
+                            @endif
+
+                            @if(empty($item->admin->roles))
+                                <td class="text-center">未知</td>
+                            @else
+                                <td class="text-center">
+                                    @foreach($item->admin->roles as $role)
+                                        {{$role->name}}
+                                    @endforeach
+                                </td>
+                            @endif
+
                             <td>{{$item->data['action']}}</td>
                             <td class="text-center">{{$item->data['ip']}}<br>来自：{{$item->data['address']}}</td>
                             <td class="text-center">{{$item->created_at->diffForHumans()}}</td>
