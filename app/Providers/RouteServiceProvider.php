@@ -35,11 +35,21 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
+        //$this->mapApiRoutes();
 
         $this->mapWebRoutes();
 
-        //
+        $sld_prefix = explode('.', $_SERVER['HTTP_HOST'])[0];
+
+        if (config('route.blog_url') == $sld_prefix) {
+            $this->mapHomeApiRoutes();
+        } elseif (config('route.travel_url') == $sld_prefix) {
+            $this->mapTravelApiRoutes();
+        } elseif (config('route.archives_url') == $sld_prefix) {
+            $this->mapArchivesApiRoutes();
+        } elseif (config('route.about_url') == $sld_prefix) {
+            $this->mapAboutApiRoutes();
+        }
     }
 
     /**
@@ -63,11 +73,46 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapApiRoutes()
+    /*protected function mapApiRoutes()
     {
         Route::prefix('api')
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+    }*/
+
+
+    protected function mapHomeApiRoutes()
+    {
+        Route::prefix('api')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/homeApi.php'));
+    }
+
+
+    protected function mapTravelApiRoutes()
+    {
+        Route::prefix('api')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/travelApi.php'));
+    }
+
+
+    protected function mapArchivesApiRoutes()
+    {
+        Route::prefix('api')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/archivesApi.php'));
+    }
+
+    protected function mapAboutApiRoutes()
+    {
+        Route::prefix('api')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/aboutApi.php'));
     }
 }
