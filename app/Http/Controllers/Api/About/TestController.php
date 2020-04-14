@@ -8,8 +8,15 @@
 
 namespace App\Http\Controllers\Api\About;
 
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class TestController
+class TestController extends Controller
 {
+
+    public function index()
+    {
+        echo "this is about";
+    }
 
 }
