@@ -37,11 +37,6 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
-
-        $sld_prefix = explode('.', $_SERVER['HTTP_HOST'])[0];
-        if (config('route.api_url') == $sld_prefix) {
-            $this->mapAdminRoutes();
-        }
     }
 
     /**
