@@ -180,6 +180,8 @@ return [
         Germey\Geetest\GeetestServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
+        Dingo\Api\Provider\LaravelServiceProvider::class,
+
     ],
 
     /*
