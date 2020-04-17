@@ -64,7 +64,7 @@ class BaseController extends Controller
     public function getModule()
     {
         $module = Request()->route()->action['prefix'];
-        $module= explode('/',$module);
+        $module= explode('/', $module);
         return $module[1];
     }
 }

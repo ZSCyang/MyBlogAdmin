@@ -43,10 +43,67 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
         Route::resource('actions', 'ActionLogsController', ['only'=> ['index','destroy']]);  //日志
 
 
-        Route::get('admins/editAvatr', 'AdminsController@editAvatr') -> name('admins.editAvatr'); //修改头像
-        Route::post('admins/post_changeAvatr', 'AdminsController@post_changeAvatr') -> name('admins.post_changeAvatr'); //提交修改头像
+        Route::get('admins/editAvatr', 'AdminsController@editAvatr')->name('admins.editAvatr'); //修改头像
+
+
+        Route::post('admins/post_changeAvatr', 'AdminsController@post_changeAvatr')
+            ->name('admins.post_changeAvatr'); //提交修改头像
 
         Route::get('admins/changePsw', 'AdminsController@changePsw')->name('admins.changePsw'); //修改密码
-        Route::post('admins/post_changePsw', 'AdminsController@post_changePsw') -> name('admins.post_changePsw');//提交修改密码
+        Route::post('admins/post_changePsw', 'AdminsController@post_changePsw')->name('admins.post_changePsw');//提交修改密码
+
+
+        //网站设置模块
+        Route::group(['prefix' => 'webSetting'], function () {
+
+            //导航栏管理
+            Route::group(['prefix' => 'navBars'], function () {
+                Route::get('index', 'WebSetting\NavBarsController@index')->name('webSetting.navBars.index');
+            });
+
+            //封面图管理
+            Route::group(['prefix' => 'covers'], function () {
+                Route::get('index', 'WebSetting\CoversController@index')->name('webSetting.covers.index');
+            });
+
+            //网站基本信息
+            Route::group(['prefix' => 'webInfo'], function () {
+                Route::get('index', 'WebSetting\WebInfoController@index')->name('webSetting.webInfo.index');
+            });
+        });
+
+
+
+        //杂文模块
+        Route::group(['prefix' => 'travels'], function () {
+
+            //智慧语管理
+            Route::group(['prefix' => 'wisdoms'], function () {
+                Route::get('index', 'Travels\WisdomsController@index')->name('travels.wisdoms.index');
+            });
+
+            Route::get('index', 'Travels\TravelsController@index')->name('travels.index');
+        });
+
+
+        //博文模块
+        Route::group(['prefix' => 'archives'], function () {
+            Route::get('index', 'Archives\ArchivesController@index')->name('archives.index');
+        });
+
+        //我的信息模块
+        Route::group(['prefix' => 'about'], function () {
+            Route::get('index', 'About\AboutController@index')->name('about.index');
+        });
+
+        //字典管理
+        Route::group(['prefix' => 'dictionaries'], function () {
+
+            Route::get('articlesTypeList', 'DictionariesController@articlesTypeList')
+                ->name('dictionaries.articlesTypeList');
+
+            Route::get('archivesTypeList', 'DictionariesController@archivesTypeList')
+                ->name('dictionaries.archivesTypeList');
+        });
     });
 });

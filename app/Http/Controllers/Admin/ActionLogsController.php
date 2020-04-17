@@ -25,7 +25,7 @@ class ActionLogsController extends BaseController
     {
         $actions = $this->actionLogsService->getActionLogs();
 
-        return $this->view(null,compact('actions'));
+        return $this->view(null, compact('actions'));
     }
 
     public function destroy(ActionLog $actionLog)
