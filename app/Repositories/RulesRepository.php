@@ -16,7 +16,6 @@
 
 namespace App\Repositories;
 
-
 use App\Models\Rule;
 
 class RulesRepository
@@ -48,7 +47,7 @@ class RulesRepository
      */
     public function ByRoute($route)
     {
-        return Rule::where('route',$route)->first();
+        return Rule::where('route', $route)->first();
     }
 
     /**
@@ -57,7 +56,7 @@ class RulesRepository
      */
     public function getRulesAndPublic()
     {
-        return Rule::orderBy('sort','asc')->public()->get();
+        return Rule::orderBy('sort', 'asc')->public()->get();
     }
 
     /**
@@ -66,6 +65,6 @@ class RulesRepository
      */
     public function getRules()
     {
-        return Rule::orderBy('sort','asc')->get();
+        return Rule::orderBy('sort', 'asc')->get();
     }
 }

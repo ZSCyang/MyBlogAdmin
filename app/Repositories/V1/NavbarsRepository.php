@@ -10,22 +10,30 @@
  * ============================================================================
  * Created by PhpStorm.
  * Author: kenuo
- * Date: 2017/11/13
- * Time: 上午10:35
+ * Date: 2017/11/17
+ * Time: 下午4:40
  */
 
-namespace App\Repositories;
+namespace App\Repositories\V1;
 
-use App\Models\Role;
+use App\Models\Navbar;
 
-class RolesRepository
+class NavbarsRepository
 {
     /**
-     * 获取所有角色
+     * 获取导航栏列表
+     * Author jintao.yang
      * @return mixed
      */
-    public function getRoles()
+    public function getNavbars()
     {
-        return Role::get();
+        return Navbar::paginate(10);
     }
+
+
+    public function add($data)
+    {
+        return Navbar::save($data);
+    }
+
 }

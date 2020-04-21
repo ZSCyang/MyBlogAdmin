@@ -19,7 +19,7 @@ class AdminsController extends BaseController
      * @param AdminsService $adminsService
      * @param RolesRepository $rolesRepository
      */
-    public function __construct(AdminsService $adminsService,RolesRepository $rolesRepository)
+    public function __construct(AdminsService $adminsService, RolesRepository $rolesRepository)
     {
         $this->adminsService = $adminsService;
 

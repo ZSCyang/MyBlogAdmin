@@ -15,6 +15,7 @@
     <link href="{{loadEdition('/admin/css/animate.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/style.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('/admin/css/common.css')}}" rel="stylesheet">
     @yield('css')
 </head>
 <body class="gray-bg">
@@ -31,6 +32,8 @@
 <script>
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>
+@section('outTag')
+@show
 @yield('footer-js')
 </body>
 </html>

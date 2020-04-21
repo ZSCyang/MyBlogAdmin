@@ -23,8 +23,7 @@ class AdminRequest extends FormRequest
      */
     public function rules()
     {
-        if(request()->method() == 'POST')
-        {
+        if (request()->method() == 'POST') {
             return [
                 'name'     => 'required|between:3,10',
                 'password' => 'required',
@@ -32,7 +31,7 @@ class AdminRequest extends FormRequest
                 'role_id'  => 'required:integer',
                 'status'   => 'required:integer',
             ];
-        }else{
+        } else {
             return [
                 'name'     => 'required|between:3,10',
                 'avatr'    => 'max:128',

@@ -30,7 +30,7 @@ trait ResponseJson
      */
     public function jsonSuccessData($data = [])
     {
-        return $this->jsonResponse(0, 'Success', $data);
+        return $this->jsonResponse(200, 'Success', $data);
     }
 
     /**

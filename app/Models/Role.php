@@ -21,7 +21,7 @@ class Role extends Model
      */
     public function rules()
     {
-        return $this->belongsToMany(Rule::class,'role_auth')->withTimestamps();
+        return $this->belongsToMany(Rule::class, 'role_auth')->withTimestamps();
     }
 
     /**
@@ -30,7 +30,7 @@ class Role extends Model
      */
     public function rulesPublic()
     {
-        return $this->rules()->public()->orderBy('sort','asc')->get();
+        return $this->rules()->public()->orderBy('sort', 'asc')->get();
     }
 
 }

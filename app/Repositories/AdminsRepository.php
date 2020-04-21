@@ -55,6 +55,6 @@ class AdminsRepository
      */
     public function ByName($name)
     {
-        return Admin::where('name',$name)->first();
+        return Admin::where('name', $name)->first();
     }
 }

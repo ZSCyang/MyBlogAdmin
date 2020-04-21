@@ -59,6 +59,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
             //导航栏管理
             Route::group(['prefix' => 'navBars'], function () {
                 Route::get('index', 'WebSetting\NavBarsController@index')->name('webSetting.navBars.index');
+                Route::post('add', 'WebSetting\NavBarsController@add')->name('webSetting.navBars.add');
             });
 
             //封面图管理
