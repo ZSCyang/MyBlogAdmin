@@ -74,16 +74,16 @@
                     <i class="fa fa-plus-square modal-icon"></i>
                     <h4 class="modal-title" id="dialog-title">添加导航栏</h4>
                 </div>
-                <form onsubmit="return false;" id="form_add_equipment" class="save-form">
+                <form onsubmit="return false;" id="form_add_navbar" class="save-form">
                     <div class="modal-body">
                         <input type="hidden" name="edit-id" value="">
                         <div class="form-group">
                             <span style="padding:0 15px 0 15px;">名称:</span>
-                            <input type="text" name="save_equipment_imei" id="navbar_name" placeholder="请输入导航栏名称"  class="form-control">
+                            <input type="text" name="save_equipment_imei" id="navbar_name" placeholder="请输入导航栏名称"  class="form-control" required>
                         </div>
                         <div class="form-group">
                             <span style="padding:0 15px 0 15px;">url:</span>
-                            <input type="text" name="save_equipment_phone" id="navbar_url"  placeholder="请输入导航栏连接"  class="form-control">
+                            <input type="text" name="save_equipment_phone" id="navbar_url"  placeholder="请输入导航栏连接"  class="form-control" required>
                         </div>
                         <div class="form-group">
                             <span style="padding:0 15px 0 15px;">备注:</span>
@@ -108,11 +108,72 @@
         //添加导航栏页面
         function addNavbar() {
             $("#navbarModal").modal("toggle");
-            $('#btn-create').show();
         }
 
-        $('#btn-create').click(function () {
-            alert(123);
+        $('#form_add_navbar').submit(function () {
+            var index = layer.load(0, {//0代表加载的风格，支持0-2
+                // shade: false,
+                shade: 0.3,
+                shadeClose: false, //是否开启遮罩关闭
+            });
+
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                data : {
+                    name: $('#navbar_name').val(),
+                    url: $('#navbar_url').val(),
+                    remark: $('#navbar_remark').val()
+                },
+                url : "{{route('webSetting.navBars.add')}}",
+                success : function(data) {
+                    layer.close(index); // 关闭当前提示
+                    if(data.code == 200){
+                        swal({
+                            title: "添加成功!",
+                            text: "页面将会自动跳转，请等待",
+                            showConfirmButton: false,
+                            type: "success",
+                            showCancelButton: false,
+                            timer: 2000
+                        }, function () {
+                            window.location.reload()
+                        })
+                    }else{
+                        swal({
+                            title: "添加失败，请刷新重试!",
+                            text: data.message,
+                            showConfirmButton: false,
+                            type: "error",
+                            showCancelButton: false,
+                            timer: 2000
+                        })
+                    }
+                },
+                error : function (msg) {
+                    layer.close(index); // 关闭当前提示
+                    if (msg.status == 422) {
+                        var json=JSON.parse(msg.responseText);
+                        json = json.errors;
+                        for ( var item in json) {
+                            for ( var i = 0; i < json[item].length; i++) {
+                                layer.msg(json[item][i]);
+                                layer.close(index); // 关闭当前提示
+                                $("#submit_school").removeAttr("disabled");
+                                return false; //遇到验证错误，就退出
+                            }
+                        }
+
+                    } else {
+                        layer.msg('服务器连接失败');
+                        layer.close(index); // 关闭当前提示
+                        $("#submit_school").removeAttr("disabled");
+                        return false;
+                    }
+                }
+            });
 
         });
     </script>

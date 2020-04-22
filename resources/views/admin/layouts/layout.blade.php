@@ -28,12 +28,12 @@
 <script src="{{loadEdition('/js/common.js')}}"></script>
 <script src="{{URL::asset('/js/plugins/layer/layer.min.js')}}"></script>
 <script src="{{URL::asset('/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
-@yield('js')
 <script>
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>
 @section('outTag')
 @show
+@yield('js')
 @yield('footer-js')
 </body>
 </html>
