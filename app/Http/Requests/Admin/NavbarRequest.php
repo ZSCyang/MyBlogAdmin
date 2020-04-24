@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+
 
 class NavbarRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class NavbarRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,10 +25,19 @@ class NavbarRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'   => 'required|between:3,10',
-            'url' => 'required',
-        ];
+
+        if (request()->method() == 'POST') {
+            return [
+                'name'   => 'required|between:3,10',
+                'url' => 'required',
+            ];
+        } else {
+            return [
+                'name'   => 'required|between:3,10',
+                'url' => 'required',
+                'narbar_id'  => 'required:integer',
+            ];
+        }
     }
 
     public function messages()
@@ -34,7 +45,9 @@ class NavbarRequest extends FormRequest
         return [
             'name.required'   => '导航栏名称名称不能为空',
             'name.between'    => '导航栏名称长度应该在3~10位之间',
-            'url.required'    => '导航栏不能为空',
+            'url.required'    => '导航栏连接不能为空',
+            'narbar_id.required'     => '参数错误，请刷新重试',
+            'narbar_id.integer'      => '表单不合法',
         ];
     }
 }

@@ -20,21 +20,22 @@
 
                 </div>
                 <form method="post" action="" name="form">
+                    {{csrf_field()}}
                     <table class="table table-striped table-bordered table-hover m-t-md">
                         <thead>
                         <tr>
-                            <th class="text-center" width="100">名称</th>
+                            <th class="text-center" width="120">名称</th>
                             <th class="text-center" width="150">连接</th>
                             <th class="text-center" width="150">备注</th>
                             <th class="text-center" width="100">添加时间</th>
                             <th class="text-center" width="100">更新时间</th>
-                            <th class="text-center" width="150">操作</th>
+                            <th class="text-center" width="120">操作</th>
                         </tr>
                         </thead>
                         <tbody>
                         @if(count($navbarsList) > 0)
                             @foreach($navbarsList as $navbar)
-                                <tr>
+                                <tr id="data_{{$navbar->id}}">
                                     <td class="text-center">{{$navbar->name}}</td>
                                     <td class="text-center">{{$navbar->url}}</td>
                                     <td class="text-center">{{$navbar->remark}}</td>
@@ -42,7 +43,7 @@
                                     <td class="text-center">{{$navbar->updated_at}}</td>
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <a href=""><button class="btn btn-primary btn-xs" type="button"><i class="fa fa-paste"></i>&nbsp;编辑</button></a>
+                                            <a href="javascript:void(0);" onclick="editNavbar({{ $navbar->id }});"><button class="btn btn-primary btn-xs" type="button"><i class="fa fa-paste"></i>&nbsp;编辑</button></a>
 
                                             <a href="javascript:"><button class="btn btn-danger btn-xs btn-delete" onclick='' type="button" data-id=""><i class="fa fa-trash-o"></i> 删除</button></a>
                                         </div>
@@ -71,30 +72,30 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
                     </button>
-                    <i class="fa fa-plus-square modal-icon"></i>
+                    <i class="fa fa-plus-square modal-icon" id="icon"></i>
                     <h4 class="modal-title" id="dialog-title">添加导航栏</h4>
                 </div>
-                <form onsubmit="return false;" id="form_add_navbar" class="save-form">
+                <form onsubmit="return false;" id="form_navbar">
+                    {{csrf_field()}}
                     <div class="modal-body">
                         <input type="hidden" name="edit-id" value="">
                         <div class="form-group">
                             <span style="padding:0 15px 0 15px;">名称:</span>
-                            <input type="text" name="save_equipment_imei" id="navbar_name" placeholder="请输入导航栏名称"  class="form-control" required>
+                            <input type="text"  id="navbar_name" placeholder="请输入导航栏名称"  class="form-control" required>
                         </div>
                         <div class="form-group">
                             <span style="padding:0 15px 0 15px;">url:</span>
-                            <input type="text" name="save_equipment_phone" id="navbar_url"  placeholder="请输入导航栏连接"  class="form-control" required>
+                            <input type="text" id="navbar_url"  placeholder="请输入导航栏连接"  class="form-control" required>
                         </div>
                         <div class="form-group">
                             <span style="padding:0 15px 0 15px;">备注:</span>
-                            <input type="text" name="save_equipment_phone" id="navbar_remark"  placeholder="请输入备注信息"  class="form-control">
+                            <input type="text" id="navbar_remark"  placeholder="请输入备注信息"  class="form-control">
                         </div>
-                        <input type="hidden" name="equipment_id" id="equipment_id" >
+                        <input type="hidden" name="navbar_id" id="navbar_id" >
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-primary" id="btn-create">添加</button>
-                        <button type="submit" class="btn btn-primary" id="btn-update" style="display: none;">修改</button>
+                        <button type="submit" class="btn btn-primary" id="btn-submit" value="add">添加</button>
                     </div>
                 </form>
             </div>
@@ -108,31 +109,79 @@
         //添加导航栏页面
         function addNavbar() {
             $("#navbarModal").modal("toggle");
+            $('#dialog-title').text('添加导航栏');
+            //修改图标
+            $('#icon').removeClass("fa-edit");
+            $('#icon').addClass("fa-plus-square");
+
+            //初始化值
+            $('#navbar_id').val();
+            $('#navbar_name').val();
+            $('#navbar_url').val();
+            $('#navbar_url').val();
+
+            //操作标识
+            $('#btn-submit').val('add');
         }
 
-        $('#form_add_navbar').submit(function () {
+
+        //编辑页面
+        function editNavbar(id) {
+
+            $("#navbarModal").modal("toggle");
+            $('#dialog-title').text('编辑导航栏');
+            $('#navbar_id').val(id);
+            $('#navbar_name').val($('#data_'+id).find('td').eq(0).text());
+            $('#navbar_url').val($('#data_'+id).find('td').eq(1).text());
+            $('#navbar_remark').val($('#data_'+id).find('td').eq(2).text());
+
+            //修改图标
+            $('#icon').removeClass("fa-plus-square");
+            $('#icon').addClass("fa-edit");
+
+            $('#btn-create').hide();
+            $('#btn-update').show();
+
+            //操作标识
+            $('#btn-submit').val('edit');
+        };
+
+        //添加导航栏
+        $('#form_navbar').submit(function () {
             var index = layer.load(0, {//0代表加载的风格，支持0-2
                 // shade: false,
                 shade: 0.3,
                 shadeClose: false, //是否开启遮罩关闭
             });
 
+            var url = "{{route('webSetting.navBars.addPost')}}";
+            var title = "添加成功";
+
+            var submit_type = $('#btn-submit').val();
+            if(submit_type=="edit"){
+                var url = "{{route('webSetting.navBars.editPost')}}";
+                var title = "修改成功";
+            }
+
             $.ajax({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 type: 'post',
                 data : {
+                    narbar_id: $('#navbar_id').val(),
                     name: $('#navbar_name').val(),
                     url: $('#navbar_url').val(),
                     remark: $('#navbar_remark').val()
                 },
-                url : "{{route('webSetting.navBars.add')}}",
+                url : url,
                 success : function(data) {
+                    console.log(data);
+
                     layer.close(index); // 关闭当前提示
                     if(data.code == 200){
                         swal({
-                            title: "添加成功!",
+                            title: title,
                             text: "页面将会自动跳转，请等待",
                             showConfirmButton: false,
                             type: "success",
@@ -141,9 +190,11 @@
                         }, function () {
                             window.location.reload()
                         })
+                    }else if(data.code == 10001){
+                        layer.msg(data.msg);
                     }else{
                         swal({
-                            title: "添加失败，请刷新重试!",
+                            title: "操作失败，请刷新重试!",
                             text: data.message,
                             showConfirmButton: false,
                             type: "error",
@@ -153,29 +204,17 @@
                     }
                 },
                 error : function (msg) {
+                    layer.msg('服务器连接失败');
                     layer.close(index); // 关闭当前提示
-                    if (msg.status == 422) {
-                        var json=JSON.parse(msg.responseText);
-                        json = json.errors;
-                        for ( var item in json) {
-                            for ( var i = 0; i < json[item].length; i++) {
-                                layer.msg(json[item][i]);
-                                layer.close(index); // 关闭当前提示
-                                $("#submit_school").removeAttr("disabled");
-                                return false; //遇到验证错误，就退出
-                            }
-                        }
-
-                    } else {
-                        layer.msg('服务器连接失败');
-                        layer.close(index); // 关闭当前提示
-                        $("#submit_school").removeAttr("disabled");
-                        return false;
-                    }
+                    return false;
                 }
             });
 
         });
+
+
+
+
     </script>
 
 @endsection

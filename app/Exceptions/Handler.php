@@ -6,6 +6,9 @@ use App\Common\Err\ApiErrDesc;
 use App\Http\Response\ResponseJson;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class Handler extends ExceptionHandler
 {
@@ -52,16 +55,23 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+
         //return parent::render($request, $exception);
+
+        //接口异常抛出返回
         if ($exception instanceof ApiException) {
             $code = $exception->getCode();
             $message = $exception->getMessage();
-        } else {
-            $code = $exception->getCode();
+        } else if ($exception instanceof ValidationException) { //字段验证异常抛出
+            $message = @$exception->validator->errors()->first(); //第一个错误
+            $code = 10001;
+        } else {  //未知错误抛出
+            return parent::render($request, $exception);
+            /*$code = $exception->getCode();
             if (!$code || $code < 0) {
                 $code = ApiErrDesc::UNKNOWN_ERR[0];
             }
-            $message = $exception->getMessage() ?: ApiErrDesc::UNKNOWN_ERR[1];
+            $message = $exception->getMessage() ?: ApiErrDesc::UNKNOWN_ERR[1];*/
         }
         return $this->jsonData($code, $message);
     }

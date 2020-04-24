@@ -20,6 +20,12 @@ use App\Models\Navbar;
 
 class NavbarsRepository
 {
+    protected $model;
+    public function __construct()
+    {
+        $this->model = new Navbar();
+    }
+
     /**
      * 获取导航栏列表
      * Author jintao.yang
@@ -33,7 +39,21 @@ class NavbarsRepository
 
     public function add($data)
     {
-        return Navbar::save($data);
+        $data =  $this->model->allowField($data, 'navbars');
+        $this->model->fillable(array_keys($data));
+        $this->model->fill($data);
+        return $this->model->save();
     }
+
+    public function edit($data)
+    {
+        return true;
+        /*$navbarModel = Navbar::find($data['navbar_id']);
+        $navbarModel->fillable(array_keys($data));
+        $navbarModel->fill($data);
+        return $navbarModel->save();*/
+    }
+
+
 
 }
