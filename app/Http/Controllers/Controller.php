@@ -21,7 +21,7 @@ class Controller extends BaseController
      * @param int $httpStatusCode
      * @return \Illuminate\Http\JsonResponse
      */
-    public function formatResponse($statusCode, $message, $data = null, $httpStatusCode = 200)
+    /*public function formatResponse($statusCode, $message, $data = null, $httpStatusCode = 200)
     {
         $respond = [
             'status_code' => $statusCode,
@@ -31,7 +31,7 @@ class Controller extends BaseController
             $respond['body'] = $data;
         }
         return response() -> json($respond, $httpStatusCode) -> setCallback(app('request')->get('callback'));
-    }
+    }*/
 
 }
 

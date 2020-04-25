@@ -35,7 +35,7 @@ class NavbarRequest extends FormRequest
             return [
                 'name'   => 'required|between:3,10',
                 'url' => 'required',
-                'narbar_id'  => 'required:integer',
+                'navbar_id'  => 'required:integer',
             ];
         }
     }
@@ -46,8 +46,8 @@ class NavbarRequest extends FormRequest
             'name.required'   => '导航栏名称名称不能为空',
             'name.between'    => '导航栏名称长度应该在3~10位之间',
             'url.required'    => '导航栏连接不能为空',
-            'narbar_id.required'     => '参数错误，请刷新重试',
-            'narbar_id.integer'      => '表单不合法',
+            'navbar_id.required'     => '参数错误，请刷新重试',
+            'navbar_id.integer'      => '表单不合法',
         ];
     }
 }

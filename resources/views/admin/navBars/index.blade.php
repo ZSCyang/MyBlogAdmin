@@ -45,7 +45,7 @@
                                         <div class="btn-group">
                                             <a href="javascript:void(0);" onclick="editNavbar({{ $navbar->id }});"><button class="btn btn-primary btn-xs" type="button"><i class="fa fa-paste"></i>&nbsp;编辑</button></a>
 
-                                            <a href="javascript:"><button class="btn btn-danger btn-xs btn-delete" onclick='' type="button" data-id=""><i class="fa fa-trash-o"></i> 删除</button></a>
+                                            <a href="javascript:"><button class="btn btn-danger btn-xs btn-delete"  onclick="javascript:return delete_ajax('{{route('webSetting.navBars.deletePost',['navbar_id'=>$navbar->id])}}','您确定删除该导航栏吗？');" type="button" data-id=""><i class="fa fa-trash-o"></i> 删除</button></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -156,20 +156,22 @@
 
             var url = "{{route('webSetting.navBars.addPost')}}";
             var title = "添加成功";
+            var sub_type = 'post';
 
             var submit_type = $('#btn-submit').val();
             if(submit_type=="edit"){
                 var url = "{{route('webSetting.navBars.editPost')}}";
                 var title = "修改成功";
+                var sub_type = 'put';
             }
 
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
-                type: 'post',
+                type: sub_type,
                 data : {
-                    narbar_id: $('#navbar_id').val(),
+                    navbar_id: $('#navbar_id').val(),
                     name: $('#navbar_name').val(),
                     url: $('#navbar_url').val(),
                     remark: $('#navbar_remark').val()

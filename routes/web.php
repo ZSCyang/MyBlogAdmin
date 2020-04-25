@@ -60,7 +60,8 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
             Route::group(['prefix' => 'navBars'], function () {
                 Route::get('index', 'WebSetting\NavBarsController@index')->name('webSetting.navBars.index');
                 Route::post('addPost', 'WebSetting\NavBarsController@addPost')->name('webSetting.navBars.addPost');
-                Route::post('editPost', 'WebSetting\NavBarsController@editPost')->name('webSetting.navBars.editPost');
+                Route::put('editPost', 'WebSetting\NavBarsController@editPost')->name('webSetting.navBars.editPost');
+                Route::get('deletePost', 'WebSetting\NavBarsController@deletePost')->name('webSetting.navBars.deletePost');
             });
 
             //封面图管理

@@ -19,7 +19,7 @@ class RolesController extends BaseController
     {
         $roles = $role->paginate(10);
 
-        return $this->view(null,compact('roles'));
+        return $this->view(null, compact('roles'));
     }
 
     /**
@@ -55,7 +55,7 @@ class RolesController extends BaseController
      */
     public function edit(Role $role)
     {
-        return $this->view('edit',compact('role'));
+        return $this->view('edit', compact('role'));
     }
 
     /**
@@ -92,15 +92,15 @@ class RolesController extends BaseController
      * 展示分配权限页面
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function access(Role $role,RulesRepository $rulesRepository,Tree $tree)
+    public function access(Role $role, RulesRepository $rulesRepository, Tree $tree)
     {
         $rules = $rulesRepository->getRules();
 
-        $datas = $tree::channelLevel($rules, 0, '&nbsp;', 'id','parent_id');
+        $datas = $tree::channelLevel($rules, 0, '&nbsp;', 'id', 'parent_id');
 
         $rules = $role->rules->pluck('id')->toArray();
 
-        return $this->view(null,compact('role','datas','rules'));
+        return $this->view(null, compact('role', 'datas', 'rules'));
     }
 
     /**
@@ -108,7 +108,7 @@ class RolesController extends BaseController
      * @param Role $role
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function groupAccess(Request $request,Role $role)
+    public function groupAccess(Request $request, Role $role)
     {
 
         $role->rules()->sync($request->get('rule_id'));

@@ -67,7 +67,7 @@ function delete_ajax(routeUrl, title = '您确定要删除这条信息吗') {
             success : function(data) {
                 console.log(data);
                 layer.close(index);
-                if (data.status_code == 200) {
+                if (data.code == 200) {
                     swal({
                         title: "删除成功!",
                         text: "页面将会自动跳转，请等待",
@@ -81,7 +81,7 @@ function delete_ajax(routeUrl, title = '您确定要删除这条信息吗') {
                 } else {
                     swal({
                         title: "删除失败!",
-                        text: data.message,
+                        text: data.msg,
                         showConfirmButton: false,
                         type: "error",
                         showCancelButton: false,

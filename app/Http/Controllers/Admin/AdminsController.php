@@ -88,6 +88,7 @@ class AdminsController extends BaseController
     }
 
     /**
+     * 删除管理员
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -95,11 +96,10 @@ class AdminsController extends BaseController
     {
         $admin = $this->adminsService->ById($id);
 
-        if(empty($admin))
-        {
-            flash('删除失败')->error()->important();
-
-            return redirect()->route('admins.index');
+        if (empty($admin)) {
+            //flash('删除失败')->error()->important();
+            return $this->jsonData('10005', '删除失败，请稍后再试');
+            //return redirect()->route('admins.index');
         }
 
 
@@ -110,7 +110,7 @@ class AdminsController extends BaseController
         //flash('删除成功')->success()->important();
         //return redirect()->route('admins.index');
 
-        return $this->formatResponse(200, '删除成功');
+        return $this->jsonSuccessData('200', '删除成功');
     }
 
     /**
@@ -118,12 +118,11 @@ class AdminsController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function status($status,$id)
+    public function status($status, $id)
     {
         $admin = $this->adminsService->ById($id);
 
-        if(empty($admin))
-        {
+        if (empty($admin)) {
             flash('操作失败')->error()->important();
 
             return redirect()->route('admins.index');

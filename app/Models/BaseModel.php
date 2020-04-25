@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Schema;
 
 class BaseModel extends Model
 {
+    /**
+     * 过滤非数据库字段
+     * Author jintao.yang
+     * @param $data
+     * @param $table
+     * @return mixed
+     */
     public function allowField($data, $table)
     {
         $fields = Schema::getColumnListing($table);

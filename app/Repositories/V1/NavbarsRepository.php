@@ -33,10 +33,16 @@ class NavbarsRepository
      */
     public function getNavbars()
     {
-        return Navbar::paginate(10);
+        return Navbar::orderBy('created_at', 'desc')
+            ->paginate(3);
     }
 
-
+    /**
+     * 添加导航栏
+     * Author jintao.yang
+     * @param $data
+     * @return bool
+     */
     public function add($data)
     {
         $data =  $this->model->allowField($data, 'navbars');
@@ -45,13 +51,25 @@ class NavbarsRepository
         return $this->model->save();
     }
 
+    /**
+     * 编辑导航栏
+     * Author jintao.yang
+     * @param $data
+     * @return mixed
+     */
     public function edit($data)
     {
-        return true;
-        /*$navbarModel = Navbar::find($data['navbar_id']);
+        $navbarModel = Navbar::find($data['navbar_id']);
+        $data =  $this->model->allowField($data, 'navbars');
         $navbarModel->fillable(array_keys($data));
         $navbarModel->fill($data);
-        return $navbarModel->save();*/
+        return $navbarModel->save();
+    }
+
+    public function delete($navbarId)
+    {
+        $navbarModel = Navbar::find($navbarId);
+        return $navbarModel->delete();
     }
 
 
