@@ -67,6 +67,9 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
             //封面图管理
             Route::group(['prefix' => 'covers'], function () {
                 Route::get('index', 'WebSetting\CoversController@index')->name('webSetting.covers.index');
+                Route::post('addPost', 'WebSetting\CoversController@addPost')->name('webSetting.covers.addPost');
+                Route::any('editPost', 'WebSetting\CoversController@editPost')->name('webSetting.covers.editPost');
+                Route::get('deletePost', 'WebSetting\CoversController@deletePost')->name('webSetting.covers.deletePost');
             });
 
             //网站基本信息

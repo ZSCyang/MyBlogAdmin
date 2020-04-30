@@ -16,51 +16,56 @@
 
 namespace App\Repositories\V1;
 
-use App\Models\Navbar;
+use App\Models\Cover;
 
-class NavbarsRepository
+class CoversRepository
 {
     protected $model;
     public function __construct()
     {
-        $this->model = new Navbar();
+        $this->model = new Cover();
     }
 
     /**
-     * 添加导航栏
+     * 添加封面图
      * Author jintao.yang
      * @param $data
      * @return bool
      */
     public function add($data)
     {
-        $data =  $this->model->allowField($data, 'navbars');
+        $data =  $this->model->allowField($data, 'covers');
         $this->model->fillable(array_keys($data));
         $this->model->fill($data);
         return $this->model->save();
     }
 
     /**
-     * 编辑导航栏
+     * 编辑封面图
      * Author jintao.yang
      * @param $data
      * @return mixed
      */
     public function edit($data)
     {
-        $navbarModel = Navbar::find($data['navbar_id']);
-        $data =  $this->model->allowField($data, 'navbars');
-        $navbarModel->fillable(array_keys($data));
-        $navbarModel->fill($data);
-        return $navbarModel->save();
+        $coverModel = Cover::find($data['cover_id']);
+        $data =  $this->model->allowField($data, 'covers');
+        $coverModel->fillable(array_keys($data));
+        $coverModel->fill($data);
+        return $coverModel->save();
     }
 
-    public function delete($navbarId)
+
+    /**
+     * 删除封面图
+     * Author jintao.yang
+     * @param $coverId
+     * @return mixed
+     */
+    public function delete($coverId)
     {
-        $navbarModel = Navbar::find($navbarId);
-        return $navbarModel->delete();
+        $coverModel = Cover::find($coverId);
+        return $coverModel->delete();
     }
-
-
 
 }

@@ -25,8 +25,9 @@
                         <thead>
                         <tr>
                             <th class="text-center" width="120">名称</th>
-                            <th class="text-center" width="150">连接</th>
-                            <th class="text-center" width="150">备注</th>
+                            <th class="text-center" width="140">连接</th>
+                            <th class="text-center" width="140">备注</th>
+                            <th class="text-center" width="100">状态</th>
                             <th class="text-center" width="100">添加时间</th>
                             <th class="text-center" width="100">更新时间</th>
                             <th class="text-center" width="120">操作</th>
@@ -39,6 +40,7 @@
                                     <td class="text-center">{{$navbar->name}}</td>
                                     <td class="text-center">{{$navbar->url}}</td>
                                     <td class="text-center">{{$navbar->remark}}</td>
+                                    <td class="text-center">{{$navbar->status}}</td>
                                     <td class="text-center">{{$navbar->created_at}}</td>
                                     <td class="text-center">{{$navbar->updated_at}}</td>
                                     <td class="text-center">
@@ -52,7 +54,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="6" style="color: red;text-align: center">暂无数据</td>
+                                <td colspan="7" style="color: red;text-align: center">暂无数据</td>
                             </tr>
                         @endif
                         </tbody>
@@ -115,10 +117,10 @@
             $('#icon').addClass("fa-plus-square");
 
             //初始化值
-            $('#navbar_id').val();
-            $('#navbar_name').val();
-            $('#navbar_url').val();
-            $('#navbar_url').val();
+            $('#navbar_id').val('');
+            $('#navbar_name').val('');
+            $('#navbar_url').val('');
+            $('#navbar_remark').val('');
 
             //操作标识
             $('#btn-submit').val('add');
@@ -148,6 +150,8 @@
 
         //添加导航栏
         $('#form_navbar').submit(function () {
+
+            $("#btn-submit").attr("disabled", "disabled");
             var index = layer.load(0, {//0代表加载的风格，支持0-2
                 // shade: false,
                 shade: 0.3,
@@ -178,9 +182,8 @@
                 },
                 url : url,
                 success : function(data) {
-                    console.log(data);
-
-                    layer.close(index); // 关闭当前提示
+                    layer.close(index); // 关闭当前加载提示
+                    $("#btn-submit").removeAttr("disabled");//释放按钮
                     if(data.code == 200){
                         swal({
                             title: title,
@@ -208,6 +211,7 @@
                 error : function (msg) {
                     layer.msg('服务器连接失败');
                     layer.close(index); // 关闭当前提示
+                    $("#btn-submit").removeAttr("disabled");//释放按钮
                     return false;
                 }
             });

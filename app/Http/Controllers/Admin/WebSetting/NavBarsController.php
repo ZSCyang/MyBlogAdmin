@@ -23,12 +23,12 @@ class NavBarsController extends Controller
      * Author jintao.yang
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Navbar $navbar)
     {
-        $navbarsList = $this->navbarsRepository->getNavbars();
+        $navbarsList = $navbar->orderBy('created_at', 'desc')
+            ->paginate(3);
         return view('admin.navBars.index', compact('navbarsList'));
     }
-
 
     /**
      * 提交添加导航栏
@@ -65,6 +65,13 @@ class NavBarsController extends Controller
         }
     }
 
+
+    /**
+     * 删除导航栏
+     * Author jintao.yang
+     * @param Request $request
+     * @return string
+     */
     public function deletePost(Request $request)
     {
         $navbarId = $request->input('navbar_id');
