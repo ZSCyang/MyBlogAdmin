@@ -70,7 +70,7 @@ class AdminsController extends BaseController
 
         $roles = $this->rolesRepository->getRoles();
 
-        return view('admin.admins.edit', compact('admin','roles'));
+        return view('admin.admins.edit', compact('admin', 'roles'));
     }
 
     /**
@@ -78,9 +78,9 @@ class AdminsController extends BaseController
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(AdminRequest $request,$id)
+    public function update(AdminRequest $request, $id)
     {
-        $this->adminsService->update($request,$id);
+        $this->adminsService->update($request, $id);
 
         flash('更新资料成功')->success()->important();
 
@@ -149,15 +149,14 @@ class AdminsController extends BaseController
     {
         $result = $this->adminsService->login($request);
 
-        if(!$result)
-        {
-            return viewError('登录失败','login');
+        if (!$result) {
+            return viewError('登录失败', 'login');
         }
 
         //将当前账号id存入到session
         $admin_id = $result -> id;
-        $request->session()->put('admin_id',$admin_id);
-        return viewError('登录成功!','index.index','success');
+        $request->session()->put('admin_id', $admin_id);
+        return viewError('登录成功!', 'index.index', 'success');
     }
 
     /**
@@ -177,7 +176,8 @@ class AdminsController extends BaseController
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function editAvatr(Request $request){
+    public function editAvatr(Request $request)
+    {
 
         $adminId = session('admin_id');
         $admin = $this->adminsService->ById($adminId);

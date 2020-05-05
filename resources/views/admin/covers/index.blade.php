@@ -226,7 +226,7 @@
                         }, function () {
                             window.location.reload()
                         })
-                    }else if(data.code == 10005){
+                    }else if(data.code == 10001){
                         layer.msg(data.msg);
                     }else{
                         swal({

@@ -11,4 +11,10 @@ class ArchivesController extends Controller
     {
         return view('admin.archives.index');
     }
+
+    public function addPost(Request $request)
+    {
+        $data = $request->all();
+        return $data;
+    }
 }

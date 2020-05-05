@@ -75,6 +75,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
             //网站基本信息
             Route::group(['prefix' => 'webInfo'], function () {
                 Route::get('index', 'WebSetting\WebInfoController@index')->name('webSetting.webInfo.index');
+                Route::any('editPost', 'WebSetting\WebInfoController@editPost')->name('webSetting.webInfo.editPost');
             });
         });
 
@@ -95,6 +96,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
         //博文模块
         Route::group(['prefix' => 'archives'], function () {
             Route::get('index', 'Archives\ArchivesController@index')->name('archives.index');
+            Route::get('addPost', 'Archives\ArchivesController@addPost')->name('archives.addPost');
         });
 
         //我的信息模块
