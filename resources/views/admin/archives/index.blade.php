@@ -2,9 +2,8 @@
 @section('content')
     <form onsubmit="return false;" id="form_archives">
         {!! csrf_field() !!}
-        {{method_field('PATCH')}}
         <div id="test-editormd">
-            <textarea name="test-editormd" style="display:none;" id="aaa"></textarea>
+            <textarea name="test-editormd" style="display:none;"></textarea>
         </div>
         <button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;保 存</button>
     </form>
@@ -18,8 +17,8 @@
         $('#form_archives').submit(function () {
 
             var url = "{{route('archives.addPost')}}";
-            var title = "修改成功";
             var data = new FormData(this);//获取非文本类的数据
+            console.log(data);
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
