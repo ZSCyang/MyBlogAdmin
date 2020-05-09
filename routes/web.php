@@ -112,6 +112,14 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
 
             Route::get('archivesTypeList', 'DictionariesController@archivesTypeList')
                 ->name('dictionaries.archivesTypeList');
+
+            Route::post('addPost', 'DictionariesController@addPost')
+                ->name('dictionaries.addPost');
+            Route::post('editPost', 'DictionariesController@editPost')
+                ->name('dictionaries.editPost');
+
+            Route::get('deletePost', 'DictionariesController@deletePost')
+                ->name('dictionaries.deletePost');
         });
     });
 });

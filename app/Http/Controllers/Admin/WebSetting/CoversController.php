@@ -42,7 +42,7 @@ class CoversController extends Controller
     {
         $data = $request->all();
         //上传图片
-        $upload_result = $this->uploadPic($data['base64Img']);
+        $upload_result = $this->uploadPic($data['base64Img'], 'covers');
 
         if ($upload_result['code'] == 200) {
             $data['pic'] = $upload_result['data'];
@@ -73,7 +73,7 @@ class CoversController extends Controller
         }
         if ($data['imgStatus'] == 2) {
             //上传图片
-            $upload_result = $this->uploadPic($data['base64Img']);
+            $upload_result = $this->uploadPic($data['base64Img'], 'covers');
             if ($upload_result['code'] == 200) {
                 $data['pic'] = $upload_result['data'];
             } else {

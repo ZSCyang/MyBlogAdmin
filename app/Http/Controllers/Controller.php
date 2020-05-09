@@ -18,7 +18,7 @@ class Controller extends BaseController
      * @param Request $request
      * @return mixed
      */
-    public function uploadPic($base64Img)
+    public function uploadPic($base64Img, $folder)
     {
         $base64Img = trim($base64Img);
         //允许上传的图片格式
@@ -38,7 +38,7 @@ class Controller extends BaseController
         $imgName = time().rand(10000, 99999).".".$ext;
 
         //存放相对路径
-        $relativePath = "/uploads/covers/".$ymd;
+        $relativePath = "/uploads/".$folder."/".$ymd;
         //存放绝对路径
         $filePath = public_path().$relativePath;
 
