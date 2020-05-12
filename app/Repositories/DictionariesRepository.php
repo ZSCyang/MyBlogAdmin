@@ -36,11 +36,24 @@ class DictionariesRepository
      */
     public function edit($data)
     {
-        $dictionarieModel = Dictionarie::find($data['archiveType_id']);
+        $dictionarieModel = Dictionarie::find($data['dictionarie_id']);
         $data =  $this->model->allowField($data, 'dictionaries');
         $dictionarieModel->fillable(array_keys($data));
         $dictionarieModel->fill($data);
         return $dictionarieModel->save();
+    }
+
+
+    /**
+     * 删除字典
+     * Author jintao.yang
+     * @param $dictionarieId
+     * @return mixed
+     */
+    public function delete($dictionarieId)
+    {
+        $dictionarieModel = Dictionarie::find($dictionarieId);
+        return $dictionarieModel->delete();
     }
 
 }

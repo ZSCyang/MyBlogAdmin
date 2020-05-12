@@ -18,7 +18,7 @@
                     <div class="col-md-11"></div>
                     <div class="col-md-1">
                         <a href="#" link-url="javascript:void(0)">
-                            <button class="btn btn-primary btn-sm" type="button" onclick="addArchiveType();"><i class="fa fa-plus-circle"></i> 新增导航栏</button>
+                            <button class="btn btn-primary btn-sm" type="button" onclick="addArchiveType();"><i class="fa fa-plus-circle"></i> 新增博文类型</button>
                         </a>
                     </div>
 
@@ -51,7 +51,7 @@
                                         <div class="btn-group">
                                             <a href="javascript:void(0);" onclick="editArchiveType({{ $archiveType->id }});"><button class="btn btn-primary btn-xs" type="button"><i class="fa fa-paste"></i>&nbsp;编辑</button></a>
 
-                                            <a href="javascript:"><button class="btn btn-danger btn-xs btn-delete"  onclick="javascript:return delete_ajax('{{route('dictionaries.deletePost',['$archiveType_id'=>$archiveType->id])}}','您确定删除该导航栏吗？');" type="button" data-id=""><i class="fa fa-trash-o"></i> 删除</button></a>
+                                            <a href="javascript:"><button class="btn btn-danger btn-xs btn-delete"  onclick="javascript:return delete_ajax('{{route('dictionaries.deletePost',['dictionarie_id'=>$archiveType->id])}}','您确定删除该博文类型吗？');" type="button" data-id=""><i class="fa fa-trash-o"></i> 删除</button></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -97,6 +97,7 @@
                         </div>
                         <div class="form-group">
                             <span style="padding:0 15px 0 15px;">logo:</span>
+                            <span style="padding:0 15px 0 15px;">logo:</span>
                             <div id="preImg">
                                 <img id="imghead" class="preview" src="{{URL::asset('/images/photo_icon.png')}}"  onclick="$('#previewImg').click();">
                             </div>
@@ -104,7 +105,7 @@
                             <input type="hidden" name="imgStatus" id="imgStatus" value="1">
                         </div>
                         <input type="hidden" name="type" value="1">
-                        <input type="hidden" name="archiveType_id" id="archiveType_id" >
+                        <input type="hidden" name="dictionarie_id" id="dictionarie_id" >
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
@@ -130,7 +131,7 @@
             $('#icon').addClass("fa-plus-square");
 
             //初始化值
-            $('#archiveType_id').val('');
+            $('#dictionarie_id').val('');
             $('#name').val('');
             $('#imghead').attr('src', "{{URL::asset('/images/photo_icon.png')}}");
             $('#imghead').css("width", "100%");
@@ -146,7 +147,7 @@
 
             $("#toggleModal").modal("toggle");
             $('#dialog-title').text('编辑博文类型');
-            $('#archiveType_id').val(id);
+            $('#dictionarie_id').val(id);
             $('#name').val($('#data_'+id).find('td').eq(0).text());
             $('#imghead').attr('src', $('#data_'+id).find('td').eq(1).children().attr("src"));
             $('#imghead').css("width", "100%");

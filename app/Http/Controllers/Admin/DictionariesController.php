@@ -27,7 +27,8 @@ class DictionariesController extends Controller
      */
     public function articlesTypeList(Dictionarie $dictionarie)
     {
-        $articlesTypeList = $dictionarie->where('type', 2)
+        $articlesTypeList = $dictionarie->orderby('created_at', 'desc')
+            ->where('type', 2)
             ->paginate(3);
         return view('admin.dictionaries.articlesTypeList', compact('articlesTypeList'));
     }
@@ -41,7 +42,8 @@ class DictionariesController extends Controller
      */
     public function archivesTypeList(Dictionarie $dictionarie)
     {
-        $archivesTypeList = $dictionarie->where('type', 1)
+        $archivesTypeList = $dictionarie->orderby('created_at', 'desc')
+            ->where('type', 1)
             ->paginate(3);
         return view('admin.dictionaries.archivesTypeList', compact('archivesTypeList'));
     }
@@ -84,7 +86,7 @@ class DictionariesController extends Controller
 
         $data = $request->all();
         //判断是否参数是否存在
-        if (empty($data['archiveType_id']) || !is_numeric(strval($data['archiveType_id']))) {
+        if (empty($data['dictionarie_id']) || !is_numeric(strval($data['dictionarie_id']))) {
             return $this->jsonData('10005', '参数错误，请刷新后重试');
         }
         if ($data['imgStatus'] == 2) {
@@ -102,6 +104,27 @@ class DictionariesController extends Controller
             return $this->jsonSuccessData();
         } else {
             return $this->jsonData('10005', '修改失败，请稍后再试');
+        }
+    }
+
+
+    /**
+     * 提交删除字典
+     * Author jintao.yang
+     * @param Request $request
+     * @return string
+     */
+    public function deletePost(Request $request)
+    {
+        $dictionarieId = $request->input('dictionarie_id');
+        if (empty($dictionarieId) || !is_numeric($dictionarieId)||strpos($dictionarieId, ".")!==false) {
+            return $this->jsonData('10005', '参数错误，请稍后再试');
+        }
+        $result = $this->dictionariesRepository->delete($dictionarieId);
+        if ($result) {
+            return $this->jsonSuccessData('200', '删除成功');
+        } else {
+            return $this->jsonData('10005', '删除失败，请稍后再试');
         }
     }
 

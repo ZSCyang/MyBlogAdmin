@@ -87,6 +87,9 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
             //智慧语管理
             Route::group(['prefix' => 'wisdoms'], function () {
                 Route::get('index', 'Travels\WisdomsController@index')->name('travels.wisdoms.index');
+                Route::post('addPost', 'Travels\WisdomsController@addPost')->name('travels.wisdoms.addPost');
+                Route::post('editPost', 'Travels\WisdomsController@editPost')->name('travels.wisdoms.editPost');
+                Route::get('deletePost', 'Travels\WisdomsController@deletePost')->name('travels.wisdoms.deletePost');
             });
 
             Route::get('index', 'Travels\TravelsController@index')->name('travels.index');
