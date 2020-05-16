@@ -20,4 +20,10 @@ class ArchivesController extends Controller
         return $data['test-editormd'];
         return $data;
     }
+
+
+    public function add()
+    {
+        return view('admin.archives.add');
+    }
 }

@@ -53,7 +53,7 @@
                                         <div class="btn-group">
                                             <a href="javascript:void(0);" onclick="editWisdom({{ $wisdom->id }});"><button class="btn btn-primary btn-xs" type="button"><i class="fa fa-paste"></i>&nbsp;编辑</button></a>
 
-                                            <a href="javascript:"><button class="btn btn-danger btn-xs btn-delete"  onclick="javascript:return delete_ajax('{{route('travels.wisdoms.deletePost',['wisdom_id'=>$wisdom->id])}}','您确定删除该智慧语吗？');" type="button" data-id=""><i class="fa fa-trash-o"></i> 删除</button></a>
+                                            <a href="javascript:"><button class="btn btn-danger btn-xs btn-delete"  onclick="javascript:return delete_ajax('{{route('articles.wisdoms.deletePost',['wisdom_id'=>$wisdom->id])}}','您确定删除该智慧语吗？');" type="button" data-id=""><i class="fa fa-trash-o"></i> 删除</button></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -207,12 +207,12 @@
                 shadeClose: false, //是否开启遮罩关闭
             });
 
-            var url = "{{route('travels.wisdoms.addPost')}}";
+            var url = "{{route('articles.wisdoms.addPost')}}";
             var title = "添加成功";
 
             var submit_type = $('#btn-submit').val();
             if (submit_type=="edit") {
-                var url = "{{route('travels.wisdoms.editPost')}}";
+                var url = "{{route('articles.wisdoms.editPost')}}";
                 var title = "修改成功";
             }
 

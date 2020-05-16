@@ -82,23 +82,24 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
 
 
         //杂文模块
-        Route::group(['prefix' => 'travels'], function () {
+        Route::group(['prefix' => 'articles'], function () {
 
             //智慧语管理
             Route::group(['prefix' => 'wisdoms'], function () {
-                Route::get('index', 'Travels\WisdomsController@index')->name('travels.wisdoms.index');
-                Route::post('addPost', 'Travels\WisdomsController@addPost')->name('travels.wisdoms.addPost');
-                Route::post('editPost', 'Travels\WisdomsController@editPost')->name('travels.wisdoms.editPost');
-                Route::get('deletePost', 'Travels\WisdomsController@deletePost')->name('travels.wisdoms.deletePost');
+                Route::get('index', 'Articles\WisdomsController@index')->name('articles.wisdoms.index');
+                Route::post('addPost', 'Articles\WisdomsController@addPost')->name('articles.wisdoms.addPost');
+                Route::post('editPost', 'Articles\WisdomsController@editPost')->name('articles.wisdoms.editPost');
+                Route::get('deletePost', 'Articles\WisdomsController@deletePost')->name('articles.wisdoms.deletePost');
             });
 
-            Route::get('index', 'Travels\TravelsController@index')->name('travels.index');
+            Route::get('index', 'Articles\ArticlesController@index')->name('articles.index');
         });
 
 
-        //博文模块
+        //杂文模块
         Route::group(['prefix' => 'archives'], function () {
             Route::get('index', 'Archives\ArchivesController@index')->name('archives.index');
+            Route::get('add', 'Archives\ArchivesController@add')->name('archives.add');
             Route::post('addPost', 'Archives\ArchivesController@addPost')->name('archives.addPost');
         });
 

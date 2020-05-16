@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Travels;
+namespace App\Http\Controllers\Admin\Articles;
 
 use App\Http\Requests\Admin\WisdomRequest;
 use App\Models\Wisdom;
