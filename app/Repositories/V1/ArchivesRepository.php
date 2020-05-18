@@ -16,11 +16,12 @@ class ArchivesRepository
 
     public function add($data)
     {
-        $data['content'] = Markdown::parse($data['test-editormd']);
-        return $data['content'];
-        /*$data =  $this->model->allowField($data, 'archives');
+
+        $data['content'] = $data['test-editormd'];
+        $data =  $this->model->allowField($data, 'archives');
         $this->model->fillable(array_keys($data));
-        $this->model->fill($data);*/
+        $this->model->fill($data);
         return $this->model->save();
+
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Archive extends Model
+class Archive extends BaseModel
 {
     //
 }

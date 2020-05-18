@@ -11,9 +11,8 @@
                 </div>
             </div>
             <div class="ibox-content">
-                <form onsubmit="return false;" id="form_webinfo">
+                <form onsubmit="return false;" id="form_archives">
                     {!! csrf_field() !!}
-                    {{method_field('PATCH')}}
                     <div class="col-sm-12">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -34,7 +33,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">类型：</label>
                                 <div class="input-group col-sm-2">
-                                    <select class="form-control m-b" id="status" name="status" style="height: 32px;">
+                                    <select class="form-control m-b" id="type" name="type" style="height: 32px;">
                                         <option value="1">php</option>
                                         <option value="2">mysql</option>
                                     </select>
@@ -56,7 +55,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">权限：</label>
                                 <div class="input-group col-sm-2">
-                                    <select class="form-control m-b" id="status" name="status" style="height: 32px;">
+                                    <select class="form-control m-b" id="power" name="power" style="height: 32px;">
                                         <option value="1">仅自己可见</option>
                                         <option value="2" selected>对外开放</option>
                                     </select>
@@ -80,7 +79,7 @@
 
                     <div class="col-sm-12">
                         <div style="margin:0 auto;text-align:center;">
-                            <button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;草稿</button>
+                            {{--<button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;草稿</button>--}}
                             <button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;发布</button>
                             <button class="btn btn-white" type="reset" ><i class="fa fa-repeat"></i> 重 置</button>
                         </div>
@@ -96,16 +95,16 @@
 @section('js')
     <script>
         //编辑网站基础信息
-        $('#form_webinfo').submit(function () {
-            $("#btn-submit").attr("disabled", "disabled");
+        $('#form_archives').submit(function () {
+            /*$("#btn-submit").attr("disabled", "disabled");
             var index = layer.load(0, {//0代表加载的风格，支持0-2
                 // shade: false,
                 shade: 0.3,
                 shadeClose: false, //是否开启遮罩关闭
-            });
+            });*/
 
-            var url = "{{route('webSetting.webInfo.editPost')}}";
-            var title = "修改成功";
+            var url = "{{route('archives.addPost')}}";
+            var title = "添加成功";
             var data = new FormData(this);//获取非文本类的数据
             $.ajax({
                 headers: {

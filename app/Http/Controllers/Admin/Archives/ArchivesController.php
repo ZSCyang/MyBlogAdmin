@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Archives;
 
-use Chenhua\MarkdownEditor\MarkdownEditor;
+use App\Http\Response\ResponseJson;
+use App\Repositories\V1\ArchivesRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ArchivesController extends Controller
 {
+    use ResponseJson;
+    protected $archivesRepository;
+    public function __construct(ArchivesRepository $archivesRepository)
+    {
+        $this->archivesRepository = $archivesRepository;
+    }
+
     public function index()
     {
         return view('admin.archives.index');
@@ -16,9 +24,12 @@ class ArchivesController extends Controller
     public function addPost(Request $request)
     {
         $data = $request->all();
-        //return MarkdownEditor::parse($data['test-editormd']);
-        return $data['test-editormd'];
-        return $data;
+        $result = $this->archivesRepository->add($data);
+        if ($result) {
+            return $this->jsonSuccessData();
+        } else {
+            return $this->jsonData('10005', '添加失败，请稍后再试');
+        }
     }
 
 
@@ -26,4 +37,5 @@ class ArchivesController extends Controller
     {
         return view('admin.archives.add');
     }
+
 }
