@@ -1,5 +1,6 @@
 @extends('admin.layouts.layout')
 @section('css')
+
 @endsection
 @section('content')
     <div class="row">
@@ -93,15 +94,16 @@
 @endsection
 
 @section('js')
+
     <script>
         //编辑网站基础信息
         $('#form_archives').submit(function () {
-            /*$("#btn-submit").attr("disabled", "disabled");
+            $("#btn-submit").attr("disabled", "disabled");
             var index = layer.load(0, {//0代表加载的风格，支持0-2
                 // shade: false,
                 shade: 0.3,
                 shadeClose: false, //是否开启遮罩关闭
-            });*/
+            });
 
             var url = "{{route('archives.addPost')}}";
             var title = "添加成功";
@@ -119,19 +121,32 @@
                     layer.close(index); // 关闭当前加载提示
                     $("#btn-submit").removeAttr("disabled");//释放按钮
                     if(data.code == 200){
+
                         swal({
-                            title: title,
-                            text: "页面将会自动跳转，请等待",
-                            showConfirmButton: false,
-                            type: "success",
-                            showCancelButton: false,
-                            timer: 2000
-                        }, function () {
-                            window.location.reload()
-                        })
-                    }else if(data.code == 10001){
-                        layer.msg(data.msg);
-                    }else{
+                            title : "提交成功",
+                            text : "请选择接下来的操作？",
+                            icon : "success",
+                            buttons : {
+                                button1 : {
+                                    text : "回到列表页",
+                                    value : true,
+                                },
+                                button2 : {
+                                    text : "继续添加",
+                                    value : false,
+                                }
+                            },
+
+                        }).then(function(value) {   //这里的value就是按钮的value值，只要对应就可以啦
+                            if (value) {
+                                window.location.href = "/"
+                            } else {
+                                window.location.reload();
+                            }
+                        });
+
+
+                    }else {
                         swal({
                             title: "操作失败，请刷新重试!",
                             text: data.message,

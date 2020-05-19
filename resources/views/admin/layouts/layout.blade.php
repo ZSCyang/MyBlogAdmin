@@ -27,7 +27,8 @@
 <script src="{{loadEdition('/admin/js/bootstrap.min.js')}}"></script>
 <script src="{{loadEdition('/js/common.js')}}"></script>
 <script src="{{URL::asset('/js/plugins/layer/layer.min.js')}}"></script>
-<script src="{{URL::asset('/js/plugins/sweetalert/sweetalert.min.js')}}"></script>
+{{--<script src="{{URL::asset('/js/plugins/sweetalert/sweetalert.min.js')}}"></script>--}}
+<script src="{{URL::asset('/js/plugins/sweetalert/sweetalert2.min.js')}}"></script>
 <script>
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>

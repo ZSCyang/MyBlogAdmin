@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Archives;
 
+use App\Http\Requests\Admin\ArchiveRequest;
 use App\Http\Response\ResponseJson;
 use App\Repositories\V1\ArchivesRepository;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class ArchivesController extends Controller
         return view('admin.archives.index');
     }
 
-    public function addPost(Request $request)
+    public function addPost(ArchiveRequest $request)
     {
         $data = $request->all();
         $result = $this->archivesRepository->add($data);
