@@ -14,6 +14,12 @@ class ArchivesRepository
         $this->model = new Archive();
     }
 
+    /**
+     * 添加博文
+     * Author jintao.yang
+     * @param $data
+     * @return bool
+     */
     public function add($data)
     {
 
@@ -22,6 +28,5 @@ class ArchivesRepository
         $this->model->fillable(array_keys($data));
         $this->model->fill($data);
         return $this->model->save();
-
     }
 }

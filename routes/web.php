@@ -96,7 +96,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
         });
 
 
-        //杂文模块
+        //博文模块
         Route::group(['prefix' => 'archives'], function () {
             Route::get('index', 'Archives\ArchivesController@index')->name('archives.index');
             Route::get('add', 'Archives\ArchivesController@add')->name('archives.add');

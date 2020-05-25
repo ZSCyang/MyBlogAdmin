@@ -97,7 +97,6 @@
                         </div>
                         <div class="form-group">
                             <span style="padding:0 15px 0 15px;">logo:</span>
-                            <span style="padding:0 15px 0 15px;">logo:</span>
                             <div id="preImg">
                                 <img id="imghead" class="preview" src="{{URL::asset('/images/photo_icon.png')}}"  onclick="$('#previewImg').click();">
                             </div>

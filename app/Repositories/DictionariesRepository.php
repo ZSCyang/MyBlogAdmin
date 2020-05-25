@@ -56,4 +56,9 @@ class DictionariesRepository
         return $dictionarieModel->delete();
     }
 
+    public function getListByType($type)
+    {
+        return $this->model->where(['type'=>$type])->get();
+    }
+
 }

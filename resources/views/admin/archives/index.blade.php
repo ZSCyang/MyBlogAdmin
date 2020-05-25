@@ -1,5 +1,6 @@
 @extends('admin.layouts.layout')
 @section('css')
+
     <style>
         .file-name1{
             color: #393939;
@@ -46,6 +47,14 @@
             margin-bottom:16px;
         }
 
+
+        .div_footer {
+            width: 90%;
+            position: absolute;
+            bottom: 0;
+            height: 50px;
+        }
+
     </style>
 @endsection
 @section('content')
@@ -63,16 +72,14 @@
                         <div class="hr-line-dashed"></div>
                         <h5>文件夹</h5>
                         <ul class="folder-list" style="padding: 0">
+                            @foreach($typeList as $type)
                             <li>
-                                <a href="file_manager.html">
-                                    <i class="fa fa-folder"></i> Mysql
+                                <a href="{{route('archives.index', ['type'=> $type->id])}}">
+                                    <i class="fa fa-folder"></i> {{ $type->name }}
                                     <span class="label label-danger pull-right">2</span>
                                 </a>
                             </li>
-                            <li><a href="file_manager.html"><i class="fa fa-folder"></i> PHP</a>
-                            </li>
-                            <li><a href="file_manager.html"><i class="fa fa-folder"></i> Linux</a>
-                            </li>
+                            @endforeach
                         </ul>
                         <h5 class="tag-title">标签</h5>
                         <ul class="tag-list" style="padding: 0">
@@ -87,23 +94,24 @@
             </div>
         </div>
         <div class="col-sm-10 animated fadeInRight">
-            <div class="row">
+            <div class="row" style="height: 750px;">
                 <div class="col-sm-12">
+                    @foreach($archivesList as $archive)
                     <div class="file-box">
                         <div class="ibox-content">
 
                             <div class="title_name">
                                 <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP,有时候这里是两Nginx支持PHP,有时候这里是两</span>
+                                    <span class="file-name1">{{ $archive->title }}</span>
                                 </a>
                             </div>
 
                             <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
+                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> {{ $archive->created_at }}</span>
                             </div>
 
                             <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
+                                <span>{{ $archive->introduction }}</span>
                             </div>
 
                             <div class="row">
@@ -114,159 +122,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP,有时候这里是两Nginx支持PHP,有时候这里是两</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">PHP+Redis 自动关闭订单或者自动完成订单</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 </span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP,有时候这里是两Nginx支持PHP,有时候这里是两</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
+            </div>
+            <div class="div_footer" style="text-align: center;position:fixed; bottom:0;">
+                {{ $archivesList->appends(['type'=>$typeId])->links() }}
             </div>
         </div>
     </div>
+
 @endsection
 
