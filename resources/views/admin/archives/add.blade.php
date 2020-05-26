@@ -81,6 +81,7 @@
                     <div class="col-sm-12">
                         <div style="margin:0 auto;text-align:center;">
                             {{--<button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;草稿</button>--}}
+                            {{--<a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="存为草稿"><i class="fa fa-pencil"></i> 存为草稿</a>--}}
                             <button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;发布</button>
                             <button class="btn btn-white" type="reset" ><i class="fa fa-repeat"></i> 重 置</button>
                         </div>

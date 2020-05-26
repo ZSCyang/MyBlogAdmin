@@ -77,13 +77,13 @@
                             @if($type->id == $typeId)
                                 <div style="z-index:0;background: #eae9e9;">
                             @else
-                                <div>
+                                 <div>
                             @endif
-                                <a href="{{route('archives.index', ['type'=> $type->id])}}">
-                                    <i class="fa fa-folder"></i> {{ $type->name }}
-                                    <span class="label label-danger pull-right">2</span>
-                                </a>
-                                </div>
+                                     <a href="{{route('archives.index', ['type'=> $type->id])}}">
+                                          <i class="fa fa-folder"></i> {{ $type->name }}
+                                          <span class="label label-danger pull-right">2</span>
+                                     </a>
+                                 </div>
                             </li>
                             @endforeach
                         </ul>
@@ -99,49 +99,63 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-10 animated fadeInRight">
-            <div class="row" style="height: 750px;">
-                <div class="col-sm-12">
-                    @if(count($archivesList) > 0)
-                    @foreach($archivesList as $archive)
-                    <div class="file-box">
-                        <div class="ibox-content">
+        <div class="col-lg-10 animated fadeInRight">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="pull-left">
+                        <button class="btn btn-white btn-sm" onclick="javascript:history.back(-1);"><i class="fa fa-arrow-left"></i></button>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-white btn-xs" type="button"><i class="fa fa-eye"> </i>&nbsp;7110</button>
+                        <button class="btn btn-white btn-xs" type="button"><i class="fa fa-comments-o"> </i>&nbsp;0</button>
+                        <button class="btn btn-white btn-xs" type="button">php</button>
+                        <button class="btn btn-white btn-xs" type="button">环境部署</button>
+                    </div>
+                    <div class="text-center article-title">
+                        <h1>
+                            {{$archive->title}}
+                        </h1>
+                    </div>
 
-                            <div class="title_name">
-                                <a href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}" class="btn-link">
-                                    <span class="file-name1">{{ $archive->title }}</span>
-                                </a>
-                            </div>
+                    <p>
+                        兜兜转转之后，这场“瘟疫”又找上了在生活中不那么起眼的自行车。然而，在搭上智能化的顺风车之前，你可知道自行车的历史？虽然，在乐视超级自行车的发布会上，它已经用了自行车史上有着重要地位的三个名字——斯塔利、西夫拉克、阿尔普迪埃——来命名自家的自行车，但那远远不够。Gizmodo 为我们梳理了自行车发展的关键节点。
+                    </p>
+                    <p>
+                        在开始之前，我们先来看看丹麦的设计师制作的动画，一分钟看完自行车近 200 年的演变。
+                    </p>
 
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> {{ $archive->created_at }}</span>
-                            </div>
+                    <div class="row">
+                        <div class="col-lg-12">
 
-                            <div class="note-abstract">
-                                <span>{{ $archive->introduction }}</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a class="btn btn-primary btn-xs" href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">详情</a>
-                                    <a class="btn btn-white btn-xs J_menuItem"  data-index="index_v1.html" href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">编辑</a>
+                            <h2>评论：</h2>
+                            <div class="social-feed-box">
+                                <div class="social-avatar">
+                                    <a href="#" class="pull-left">
+                                        <img alt="image" src="img/a1.jpg">
+                                    </a>
+                                    <div class="media-body">
+                                        <a href="#">
+                                            逆光狂胜蔡舞娘
+                                        </a>
+                                        <small class="text-muted">17 小时前</small>
+                                    </div>
+                                </div>
+                                <div class="social-body">
+                                    <p>
+                                        好东西，我朝淘宝准备跟进，1折开卖
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @endforeach
-                    @else
-                        <div style="text-align: center;">
-                            <span style="color: red;">没有搜索到您想要的东西哦~~~</span>
-                        </div>
-                    @endif
+
+
                 </div>
-            </div>
-            <div class="div_footer" style="text-align: center;position:fixed; bottom:0;">
-                {{ $archivesList->appends(['type'=>$typeId])->links() }}
             </div>
         </div>
     </div>
 
 @endsection
+
+
 
