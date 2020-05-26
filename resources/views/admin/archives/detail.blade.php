@@ -113,16 +113,16 @@
                     </div>
                     <div class="text-center article-title">
                         <h1>
-                            {{$archive->title}}
+                            {{ $archive->title }}
                         </h1>
                     </div>
 
-                    <p>
-                        兜兜转转之后，这场“瘟疫”又找上了在生活中不那么起眼的自行车。然而，在搭上智能化的顺风车之前，你可知道自行车的历史？虽然，在乐视超级自行车的发布会上，它已经用了自行车史上有着重要地位的三个名字——斯塔利、西夫拉克、阿尔普迪埃——来命名自家的自行车，但那远远不够。Gizmodo 为我们梳理了自行车发展的关键节点。
-                    </p>
-                    <p>
-                        在开始之前，我们先来看看丹麦的设计师制作的动画，一分钟看完自行车近 200 年的演变。
-                    </p>
+                    <div id="doc-content">
+                        <textarea>
+                            {{ $archive->content }}
+                        </textarea>
+                    </div>
+                    @include('markdown::decode',['editors'=>['doc-content']])
 
                     <div class="row">
                         <div class="col-lg-12">

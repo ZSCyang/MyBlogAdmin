@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="430c0ec0-47e6-4a9e-ab64-53eb5d938a7b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/archives/detail.blade.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/resources/views/admin/archives/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Archives/ArchivesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Archives/ArchivesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/archives/add.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/archives/add.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/archives/detail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/archives/detail.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/archives/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/archives/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
@@ -80,20 +80,17 @@
       <file leaf-file-name="add.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/archives/add.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1068">
-              <caret line="83" column="32" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="181" />
-              <folding>
-                <element signature="e#0#7583#0#Blade" />
-              </folding>
+            <state relative-caret-position="281">
+              <caret line="93" column="4" lean-forward="true" selection-start-line="93" selection-start-column="4" selection-end-line="93" selection-end-column="63" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail.blade.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="detail.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/admin/archives/detail.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="717">
-              <caret line="115" column="45" selection-start-line="115" selection-start-column="45" selection-end-line="115" selection-end-column="45" />
+            <state relative-caret-position="351">
+              <caret line="118" lean-forward="true" selection-start-line="118" selection-end-line="118" />
               <folding>
                 <element signature="e#1419#3540#0#HTML" />
                 <element signature="e#1813#1865#0#HTML" expanded="true" />
@@ -108,7 +105,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="web.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
@@ -209,10 +206,10 @@
         <option value="$PROJECT_DIR$/resources/views/admin/dictionaries/archivesTypeList.blade.php" />
         <option value="$PROJECT_DIR$/app/Repositories/V1/ArchivesRepository.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/archives/add.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/admin/archives/detail.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/admin/archives/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/Archives/ArchivesController.php" />
         <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/resources/views/admin/archives/detail.blade.php" />
       </list>
     </option>
   </component>
@@ -620,12 +617,12 @@
       <workItem from="1590025203376" duration="1231000" />
       <workItem from="1590110697966" duration="594000" />
       <workItem from="1590370611699" duration="10406000" />
-      <workItem from="1590457078927" duration="10664000" />
+      <workItem from="1590457078927" duration="12541000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="355879000" />
+    <option name="totallyTimeSpent" value="357756000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
@@ -950,23 +947,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/archives/detail.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
-          <caret line="115" column="45" selection-start-line="115" selection-start-column="45" selection-end-line="115" selection-end-column="45" />
-          <folding>
-            <element signature="e#1419#3540#0#HTML" />
-            <element signature="e#1813#1865#0#HTML" expanded="true" />
-            <element signature="e#1919#1944#0#HTML" expanded="true" />
-            <element signature="e#2236#2254#0#HTML" expanded="true" />
-            <element signature="e#2437#2475#0#HTML" expanded="true" />
-            <element signature="e#3152#3170#0#HTML" expanded="true" />
-            <element signature="e#4027#4033#0#HTML" expanded="true" />
-            <element signature="e#4148#4154#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/admin/archives/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="123">
@@ -996,16 +976,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/admin/archives/add.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1068">
-          <caret line="83" column="32" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="181" />
-          <folding>
-            <element signature="e#0#7583#0#Blade" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/Archive.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -1027,6 +997,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="96" lean-forward="true" selection-start-line="96" selection-end-line="96" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/archives/add.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="93" column="4" lean-forward="true" selection-start-line="93" selection-start-column="4" selection-end-line="93" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/admin/archives/detail.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="118" lean-forward="true" selection-start-line="118" selection-end-line="118" />
+          <folding>
+            <element signature="e#1419#3540#0#HTML" />
+            <element signature="e#1813#1865#0#HTML" expanded="true" />
+            <element signature="e#1919#1944#0#HTML" expanded="true" />
+            <element signature="e#2236#2254#0#HTML" expanded="true" />
+            <element signature="e#2437#2475#0#HTML" expanded="true" />
+            <element signature="e#3152#3170#0#HTML" expanded="true" />
+            <element signature="e#4027#4033#0#HTML" expanded="true" />
+            <element signature="e#4148#4154#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
