@@ -43,17 +43,6 @@
 
                             <div class="hr-line-dashed m-t-sm m-b-sm"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">状态：</label>
-                                <div class="input-group col-sm-2">
-                                    <select class="form-control m-b" id="status" name="status" style="height: 32px;">
-                                        <option value="1">立即生效</option>
-                                        <option value="2">存入草稿</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="hr-line-dashed m-t-sm m-b-sm"></div>
-                            <div class="form-group">
                                 <label class="col-sm-2 control-label">权限：</label>
                                 <div class="input-group col-sm-2">
                                     <select class="form-control m-b" id="power" name="power" style="height: 32px;">
@@ -64,7 +53,6 @@
                             </div>
                         </div>
                     </div>
-
 
 
                     <div class="col-sm-12">
@@ -80,9 +68,10 @@
 
                     <div class="col-sm-12">
                         <div style="margin:0 auto;text-align:center;">
-                            {{--<button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;草稿</button>--}}
-                            {{--<a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="存为草稿"><i class="fa fa-pencil"></i> 存为草稿</a>--}}
-                            <button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;发布</button>
+                            <input type="submit" name="save" value="Save" />
+                            <input type="submit" name="saveAndAdd" value="Save and add another" />
+                            <button class="btn btn-white" type="submit" value="draft"><i class="fa fa-pencil"></i>&nbsp;<span>存为草稿</span></button>
+                            <button class="btn btn-primary" type="submit" value="publish"><i class="fa fa-check"></i>&nbsp;<span>发布</span></button>
                             <button class="btn btn-white" type="reset" ><i class="fa fa-repeat"></i> 重 置</button>
                         </div>
                     </div>
@@ -97,8 +86,19 @@
 @section('js')
 
     <script>
+        var submitActor = null;
+        var $submitActors = $("#form_archives").find('input[type=submit]');
         //编辑网站基础信息
-        $('#form_archives').submit(function () {
+        $('#form_archives').submit(function (event) {
+            if (null === submitActor) {
+                submitActor = $submitActors[0];
+            }
+            alert(submitActor.name);
+
+
+            var text = $(this).val();
+            alert(text);
+            return false;
             $("#btn-submit").attr("disabled", "disabled");
             var index = layer.load(0, {//0代表加载的风格，支持0-2
                 // shade: false,
@@ -166,6 +166,10 @@
                 }
             });
 
+        });
+
+        $submitActors.click(function(event) {
+            submitActor = this;
         });
 
     </script>

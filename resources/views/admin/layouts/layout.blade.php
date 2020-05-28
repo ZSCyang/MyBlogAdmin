@@ -35,6 +35,15 @@
 @section('outTag')
 @show
 @yield('js')
+
+<script>
+    {{--刷新当前页面--}}
+    $(document).ready(function(){
+        $("#loading-example-btn").click(function(){
+            location.reload();
+        });
+    });
+</script>
 @yield('footer-js')
 </body>
 </html>

@@ -124,7 +124,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <a class="btn btn-primary btn-xs" href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">详情</a>
-                                    <a class="btn btn-white btn-xs J_menuItem"  data-index="index_v1.html" href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">编辑</a>
+                                    <a class="btn btn-white btn-xs J_menuItem"  data-index="index_v1.html" href="{{route('archives.edit',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">编辑</a>
                                 </div>
                             </div>
                         </div>

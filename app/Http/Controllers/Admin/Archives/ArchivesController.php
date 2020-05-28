@@ -65,12 +65,12 @@ class ArchivesController extends Controller
         return view('admin.archives.detail', compact('typeId', 'title', 'typeList', 'archive'));
     }
 
-    public function edit(Request $request)
+    public function edit(Archive $archive, Request $request)
     {
         $typeId = $request->input('type');
         $title = $request->input('title');
         $typeList = $this->dictionariesRepository->getListByType(1);
-        return view('admin.archives.detail', compact('typeId', 'title', 'typeList'));
+        return view('admin.archives.edit', compact('typeId', 'title', 'typeList', 'archive'));
     }
 
 }
