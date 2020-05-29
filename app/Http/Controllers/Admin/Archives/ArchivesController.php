@@ -73,4 +73,20 @@ class ArchivesController extends Controller
         return view('admin.archives.edit', compact('typeId', 'title', 'typeList', 'archive'));
     }
 
+
+    public function editPost(ArchiveRequest $request)
+    {
+        $data = $request->all();
+        //判断是否参数是否存在
+        if (empty($data['archive_id']) || !is_numeric(strval($data['archive_id']))) {
+            return $this->jsonData('10005', '参数错误，请刷新后重试');
+        }
+        $result = $this->archivesRepository->edit($data);
+        if ($result) {
+            return $this->jsonSuccessData();
+        } else {
+            return $this->jsonData('10005', '添加失败，请稍后再试');
+        }
+    }
+
 }

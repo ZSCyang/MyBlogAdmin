@@ -48,6 +48,7 @@
             <div class="ibox-title">
                 <h5>博文管理 > 编辑博文 > <span class="current_nav">{{ $archive->title }}</span></h5>
                 <div class="ibox-tools" style="margin-top:-5px;">
+                    <a class="menuid btn btn-primary btn-sm" href="javascript:history.go(-1)">返回</a>
                     <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>刷新</button>
                 </div>
             </div>
@@ -106,13 +107,15 @@
                         </div>
                     </div>
 
-
+                    <input type="hidden" name="archive_id" id="archive_id" value="{{ $archive->id }}" />
                     <div class="col-sm-12">
                         <div style="margin:0 auto;text-align:center;">
                             {{--<button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;草稿</button>--}}
                             {{--<a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="存为草稿"><i class="fa fa-pencil"></i> 存为草稿</a>--}}
-                            <button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;发布</button>
-                            <button class="btn btn-white" type="reset" ><i class="fa fa-repeat"></i> 重 置</button>
+                            <input type="submit" class="btn btn-white" name="draft" value="存为草稿" />
+                            <input type="submit" class="btn btn-primary" name="publish" value="立即发布" />
+                            {{--<button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;发布</button>--}}
+                            <button class="btn btn-primary" type="reset" onclick="javascript:history.back(-1);"><i class="fa fa-repeat"></i> 返回列表</button>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -126,8 +129,24 @@
 @section('js')
 
     <script>
+
+        var submitActor = null;
+        var $submitActors = $("#form_archives").find('input[type=submit]');
+
         //编辑网站基础信息
         $('#form_archives').submit(function () {
+
+            if (null === submitActor) {
+                submitActor = $submitActors[0];
+            }
+
+            var data = new FormData(this);//获取非文本类的数据
+            if (submitActor.name == "publish") {
+                data.append('status', 1);
+            } else {
+                data.append('status', 2);
+            }
+
             $("#btn-submit").attr("disabled", "disabled");
             var index = layer.load(0, {//0代表加载的风格，支持0-2
                 // shade: false,
@@ -135,9 +154,8 @@
                 shadeClose: false, //是否开启遮罩关闭
             });
 
-            var url = "{{route('archives.addPost')}}";
-            var title = "添加成功";
-            var data = new FormData(this);//获取非文本类的数据
+            var url = "{{route('archives.editPost')}}";
+            var title = "修改成功";
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -153,7 +171,7 @@
                     if(data.code == 200){
 
                         swal({
-                            title : "提交成功",
+                            title : "修改成功",
                             text : "请选择接下来的操作？",
                             icon : "success",
                             buttons : {
@@ -162,24 +180,26 @@
                                     value : true,
                                 },
                                 button2 : {
-                                    text : "继续添加",
+                                    text : "继续编辑",
                                     value : false,
                                 }
                             },
 
                         }).then(function(value) {   //这里的value就是按钮的value值，只要对应就可以啦
                             if (value) {
-                                window.location.href = "/"
+                                window.history.back(-1);
+                                //window.location.href = "window.location.go(-1); "
                             } else {
                                 window.location.reload();
                             }
                         });
 
-
-                    }else {
+                    } else if(data.code == 10001) {
+                        layer.msg(data.msg);
+                    } else {
                         swal({
                             title: "操作失败，请刷新重试!",
-                            text: data.message,
+                            text: data.msg,
                             showConfirmButton: false,
                             type: "error",
                             showCancelButton: false,

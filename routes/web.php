@@ -103,6 +103,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
             Route::post('addPost', 'Archives\ArchivesController@addPost')->name('archives.addPost');
             Route::get('detail/{archive}', 'Archives\ArchivesController@detail')->name('archives.detail');
             Route::get('edit/{archive}', 'Archives\ArchivesController@edit')->name('archives.edit');
+            Route::post('editPost', 'Archives\ArchivesController@editPost')->name('archives.editPost');
         });
 
         //我的信息模块

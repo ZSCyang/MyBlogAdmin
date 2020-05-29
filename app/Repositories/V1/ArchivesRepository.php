@@ -29,4 +29,15 @@ class ArchivesRepository
         $this->model->fill($data);
         return $this->model->save();
     }
+
+
+    public function edit($data)
+    {
+        $data['content'] = $data['test-editormd'];
+        $archive = Archive::find($data['archive_id']);
+        $data =  $archive->allowField($data, 'archives');
+        $archive->fillable(array_keys($data));
+        $archive->fill($data);
+        return $archive->save();
+    }
 }

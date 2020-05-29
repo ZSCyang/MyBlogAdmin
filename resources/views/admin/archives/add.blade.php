@@ -68,11 +68,11 @@
 
                     <div class="col-sm-12">
                         <div style="margin:0 auto;text-align:center;">
-                            <input type="submit" name="save" value="Save" />
-                            <input type="submit" name="saveAndAdd" value="Save and add another" />
-                            <button class="btn btn-white" type="submit" value="draft"><i class="fa fa-pencil"></i>&nbsp;<span>存为草稿</span></button>
-                            <button class="btn btn-primary" type="submit" value="publish"><i class="fa fa-check"></i>&nbsp;<span>发布</span></button>
-                            <button class="btn btn-white" type="reset" ><i class="fa fa-repeat"></i> 重 置</button>
+                            <input type="submit" class="btn btn-white" name="draft" value="存为草稿" />
+                            <input type="submit" class="btn btn-primary" name="publish" value="立即发布" />
+                            {{--<button class="btn btn-white" type="submit" value="draft"><i class="fa fa-pencil"></i>&nbsp;<span>存为草稿</span></button>
+                            <button class="btn btn-primary" type="submit" value="publish"><i class="fa fa-check"></i>&nbsp;<span>发布</span></button>--}}
+                            {{--<button class="btn btn-white" type="reset" ><i class="fa fa-repeat"></i> 重 置</button>--}}
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -93,12 +93,14 @@
             if (null === submitActor) {
                 submitActor = $submitActors[0];
             }
-            alert(submitActor.name);
 
+            var data = new FormData(this);//获取非文本类的数据
+            if (submitActor.name == "publish") {
+                data.append('status', 1);
+            } else {
+                data.append('status', 2);
+            }
 
-            var text = $(this).val();
-            alert(text);
-            return false;
             $("#btn-submit").attr("disabled", "disabled");
             var index = layer.load(0, {//0代表加载的风格，支持0-2
                 // shade: false,
@@ -108,7 +110,7 @@
 
             var url = "{{route('archives.addPost')}}";
             var title = "添加成功";
-            var data = new FormData(this);//获取非文本类的数据
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -147,10 +149,12 @@
                         });
 
 
-                    }else {
+                    } else if(data.code == 10001) {
+                        layer.msg(data.msg);
+                    } else {
                         swal({
                             title: "操作失败，请刷新重试!",
-                            text: data.message,
+                            text: data.msg,
                             showConfirmButton: false,
                             type: "error",
                             showCancelButton: false,
