@@ -138,7 +138,3 @@ Route::post('markdown/upload', function () {
     $info = Controller::uploadFile();
     return json_encode($info);
 })->name('markdown.uploadFile');
-Route::post('markdown/upload', function () {
-    $info = MarkdownEditor::upload();
-    return json_encode($info);
-});
