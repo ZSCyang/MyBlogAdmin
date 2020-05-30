@@ -182,8 +182,6 @@ return [
 
         Dingo\Api\Provider\LaravelServiceProvider::class,
 
-        Chenhua\MarkdownEditor\MarkdownEditorServiceProvider::class,
-
     ],
 
     /*

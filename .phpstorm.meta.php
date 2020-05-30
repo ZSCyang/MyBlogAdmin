@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2020-05-05.
+    * Generated on 2020-05-30.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -63,6 +63,7 @@ namespace PHPSTORM_META {
         'Laracasts\Flash\SessionStore' => \Laracasts\Flash\LaravelSessionStore::class,
         'flash' => \Laracasts\Flash\FlashNotifier::class,
         'geetest' => \Germey\Geetest\GeetestLib::class,
+        'markdown-editor' => \Chenhua\MarkdownEditor\MarkdownEditor::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
@@ -217,6 +218,7 @@ namespace PHPSTORM_META {
         'Laracasts\Flash\SessionStore' => \Laracasts\Flash\LaravelSessionStore::class,
         'flash' => \Laracasts\Flash\FlashNotifier::class,
         'geetest' => \Germey\Geetest\GeetestLib::class,
+        'markdown-editor' => \Chenhua\MarkdownEditor\MarkdownEditor::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
@@ -371,6 +373,7 @@ namespace PHPSTORM_META {
         'Laracasts\Flash\SessionStore' => \Laracasts\Flash\LaravelSessionStore::class,
         'flash' => \Laracasts\Flash\FlashNotifier::class,
         'geetest' => \Germey\Geetest\GeetestLib::class,
+        'markdown-editor' => \Chenhua\MarkdownEditor\MarkdownEditor::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
@@ -525,6 +528,7 @@ namespace PHPSTORM_META {
         'Laracasts\Flash\SessionStore' => \Laracasts\Flash\LaravelSessionStore::class,
         'flash' => \Laracasts\Flash\FlashNotifier::class,
         'geetest' => \Germey\Geetest\GeetestLib::class,
+        'markdown-editor' => \Chenhua\MarkdownEditor\MarkdownEditor::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
@@ -679,6 +683,7 @@ namespace PHPSTORM_META {
         'Laracasts\Flash\SessionStore' => \Laracasts\Flash\LaravelSessionStore::class,
         'flash' => \Laracasts\Flash\FlashNotifier::class,
         'geetest' => \Germey\Geetest\GeetestLib::class,
+        'markdown-editor' => \Chenhua\MarkdownEditor\MarkdownEditor::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
@@ -833,6 +838,7 @@ namespace PHPSTORM_META {
         'Laracasts\Flash\SessionStore' => \Laracasts\Flash\LaravelSessionStore::class,
         'flash' => \Laracasts\Flash\FlashNotifier::class,
         'geetest' => \Germey\Geetest\GeetestLib::class,
+        'markdown-editor' => \Chenhua\MarkdownEditor\MarkdownEditor::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,
@@ -987,6 +993,7 @@ namespace PHPSTORM_META {
         'Laracasts\Flash\SessionStore' => \Laracasts\Flash\LaravelSessionStore::class,
         'flash' => \Laracasts\Flash\FlashNotifier::class,
         'geetest' => \Germey\Geetest\GeetestLib::class,
+        'markdown-editor' => \Chenhua\MarkdownEditor\MarkdownEditor::class,
         'blade.compiler' => \Illuminate\View\Compilers\BladeCompiler::class,
         'validation.presence' => \Illuminate\Validation\DatabasePresenceVerifier::class,
         'translation.loader' => \Illuminate\Translation\FileLoader::class,

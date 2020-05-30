@@ -129,4 +129,16 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
                 ->name('dictionaries.deletePost');
         });
     });
+
+});
+
+//公共模块
+Route::post('markdown/upload', function () {
+    return 123;
+    $info = Controller::uploadFile();
+    return json_encode($info);
+})->name('markdown.uploadFile');
+Route::post('markdown/upload', function () {
+    $info = MarkdownEditor::upload();
+    return json_encode($info);
 });

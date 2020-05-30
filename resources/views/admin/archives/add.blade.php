@@ -1,6 +1,6 @@
 @extends('admin.layouts.layout')
 @section('css')
-
+    <link rel="stylesheet" href="{{URL::asset('/admin/css/markdown/editormd.css')}}" />
 @endsection
 @section('content')
     <div class="row">
@@ -59,8 +59,9 @@
                         <div class="hr-line-dashed m-t-sm m-b-sm"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">博文内容：</label>
-                            <div id="test-editormd" style="z-index: 99999;">
-                                <textarea name="test-editormd" style="display:none;"></textarea>
+                            <div id="myeditormd" style="z-index: 99999;">
+                                <!-- Tips: Editor.md can auto append a `<textarea>` tag -->
+                                <textarea style="display:none;">### Hello Editor.md !</textarea>
                             </div>
                         </div>
                     </div>
@@ -80,10 +81,30 @@
             </div>
         </div>
     </div>
-    @include('markdown::encode',['editors'=>['test-editormd']])
 @endsection
 
 @section('js')
+    <script src="{{URL::asset('/admin/js/markdown/editormd.min.js')}}"></script>
+    <script type="text/javascript">
+        var testEditor;
+        $(function () {
+            testEditor = editormd("myeditormd",{
+                width:"100%",
+                height:600,
+                syncScrolling:"single",
+                taskList : true,
+                tocm: true,
+                path:"{{URL::asset('/admin/js/markdown/lib/')}}" + "/",
+                tex:true,
+                flowChart       : true,
+                sequenceDiagram:true,
+                saveHTMLToTextarea : true,
+                imageUpload : true,
+                imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL : "{{ route('markdown.uploadFile')}}",
+            });
+        });
+    </script>
 
     <script>
         var submitActor = null;
