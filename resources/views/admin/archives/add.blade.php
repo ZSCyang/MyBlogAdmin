@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="{{URL::asset('/admin/css/markdown/editormd.css')}}" />
 @endsection
 @section('content')
+    <meta name="_token" content="{{ csrf_token() }}"/>
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox-title">

@@ -129,7 +129,6 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
                 ->name('dictionaries.deletePost');
         });
     });
-
 });
 
 //公共模块
