@@ -128,12 +128,12 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
             Route::get('deletePost', 'DictionariesController@deletePost')
                 ->name('dictionaries.deletePost');
         });
+
+        //公共模块
+        Route::group(['prefix' => 'common'], function () {
+            Route::post('markdown/upload', 'CommonController@uploadFileByMarkdown')->name('markdown.uploadFile');
+        });
     });
 });
 
-//公共模块
-Route::post('markdown/upload', function () {
-    return 123;
-    $info = Controller::uploadFile();
-    return json_encode($info);
-})->name('markdown.uploadFile');
+

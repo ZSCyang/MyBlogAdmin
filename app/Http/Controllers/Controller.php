@@ -78,42 +78,6 @@ class Controller extends BaseController
         //保存为字节流的方式
         //$img =  $img->encode('jpg');
     }
-
-
-    //文件上传
-    public static function uploadFile()
-    {
-        return 123;
-        if (Request::hasFile('editormd-image-file')) {
-            $pic = Request::file('editormd-image-file');
-            if ($pic->isValid()) {
-                //存储位置
-                $path = "/uploads/markdown/" . date("Y-m-d");
-                if (is_dir($path)) {
-                    mkdir($path, 777);
-                }
-                $newName = date('Ymd-His') . '-' . rand(100, 999) . '.' . $pic->getClientOriginalExtension();
-                //本地保存
-                $pic->move($path, $newName);
-                //{"success":1,"url":"\/upLoadsFiles\/5bdbcb266de8d68c97328f8ccbcb946e.jpg","message":"success"}
-                //这个数据格式是编辑器要求的！必须按这样返回~
-                //这里的success的值 必须是数值int的1或者0不然会没法回显url！1成功  0失败
-                //url就是图片的路径这没啥说的，message见名知意描述啥的
-                $picUrl = $path . $newName;
-                return $picUrl;
-                return json_encode(array(
-                    'success' => 1,
-                    'url' => $picUrl,
-                    'message' => 'success',
-                ));
-            }
-        }
-        return json_encode(array(
-            'success' => 0,
-            'url' => "",
-            'message' => 'error',
-        ));
-    }
 }
 
 
