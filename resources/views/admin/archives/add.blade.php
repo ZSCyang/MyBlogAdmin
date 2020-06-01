@@ -62,7 +62,7 @@
                             <label class="col-sm-2 control-label">博文内容：</label>
                             <div id="myeditormd" style="z-index: 99999;">
                                 <!-- Tips: Editor.md can auto append a `<textarea>` tag -->
-                                <textarea style="display:none;">### Hello Editor.md !</textarea>
+                                <textarea style="display:none;" name="test-editormd"></textarea>
                             </div>
                         </div>
                     </div>
@@ -198,6 +198,58 @@
             submitActor = this;
         });
 
+
+        function paste(event) {
+
+            var clipboardData = event.clipboardData;
+            var items, item, types;
+            if (clipboardData) {
+                items = clipboardData.items;
+                if (!items) {
+                    return;
+                }
+                // 保存在剪贴板中的数据类型
+                types = clipboardData.types || [];
+                for (var i = 0; i < types.length; i++) {
+                    if (types[i] === 'Files') {
+                        item = items[i];
+                        break;
+                    }
+                }
+                // 判断是否为图片数据
+                if (item && item.kind === 'file' && item.type.match(/^image\//i)) {
+                    // 读取该图片
+                    var file = item.getAsFile(),
+                        reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = function () {
+                        //前端压缩
+
+                            $.ajax({
+                                url: "{{route('markdown.uploadBase64')}}",
+                                type: 'post',
+                                data: {
+                                    "image_base64": reader.result,
+                                    '_token':'{{csrf_token()}}'
+                                },
+                                contentType: 'application/x-www-form-urlencoded;charest=UTF-8',
+                                success: function (data) {
+                                    if(data.code == 200){
+                                        var qiniuUrl = '![](' + data.data + ')';
+                                        testEditor.insertValue(qiniuUrl);
+                                    }else{
+                                        alert("上传失败");
+                                    }
+
+                                }
+                            })
+                    }
+                }
+            }
+        }
+        document.addEventListener('paste', function (event) {
+            paste(event);
+        })
     </script>
 
 @endsection

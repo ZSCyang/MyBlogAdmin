@@ -131,7 +131,10 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
 
         //公共模块
         Route::group(['prefix' => 'common'], function () {
-            Route::post('markdown/upload', 'CommonController@uploadFileByMarkdown')->name('markdown.uploadFile');
+            Route::post('markdown/uploadFile', 'CommonController@uploadFileByMarkdown')
+                ->name('markdown.uploadFile');
+            Route::post('markdown/uploadBase64', 'CommonController@uploadBase64ByMarkdown')
+                ->name('markdown.uploadBase64');
         });
     });
 });

@@ -40,6 +40,7 @@ class ArchivesController extends Controller
         return view('admin.archives.index', compact('archivesList', 'typeList', 'typeId', 'title'));
     }
 
+
     public function addPost(ArchiveRequest $request)
     {
         $data = $request->all();

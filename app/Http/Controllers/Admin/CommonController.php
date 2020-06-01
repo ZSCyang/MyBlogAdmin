@@ -11,14 +11,13 @@ class CommonController extends Controller
 {
     use ResponseJson;
 
+    /**
+     * markdown上传File文件
+     * Author jintao.yang
+     * @param Request $request
+     */
     public function uploadFileByMarkdown(Request $request)
     {
-        $this->disk = Storage::disk('public');
-        $path = "/uploads/markdown/" . date("Y-m-d");
-        if (!$this->disk->exists($path)) {
-            $this->disk->makeDirectory($path);
-        }
-        return 888;
 
         $message='';
         if ($request->hasFile('editormd-image-file')) {
@@ -27,12 +26,12 @@ class CommonController extends Controller
                 //存储位置
                 $path = "/uploads/markdown/" . date("Y-m-d");
                 if (!is_dir($path)) {
-                    mkdir($path, 777);
+                    mkdir(public_path().$path, 0777, true);
                 }
                 $newName = date('Ymd-His') . '-' . rand(100, 999) . '.' . $pic->getClientOriginalExtension();
                 //本地保存
-                if ($pic->move($path, $newName)) {
-                    $url = $path . $newName;
+                if ($pic->move(public_path().$path, $newName)) {
+                    $url = $path ."/". $newName;
                 } else {
                     $message="系统异常，文件保存失败";
                 }
@@ -52,5 +51,68 @@ class CommonController extends Controller
         );
         header('Content-Type:application/json;charset=utf8');
         exit(json_encode($data));
+    }
+
+
+    /**
+     * markdown上传base64图片
+     * Author jintao.yang
+     * @param Request $request
+     * @return string
+     */
+    public function uploadBase64ByMarkdown(Request $request)
+    {
+        $base64Img = trim($request->input('image_base64'));
+        //允许上传的图片格式
+        $filetype = ['jpg','png','jpeg'];
+
+        if (!preg_match('/^(data:\s*image\/(\w+);base64,)/', $base64Img, $matches)) {
+            return $this->jsonResponse('10005', '这不是标准的base64');
+        }
+        //判断允许上传的文件格式
+        if (!in_array($matches[2], $filetype)) {
+            return $this->jsonResponse('10005', '上传文件格式不支持');
+        }
+
+        //确定保存文件的地址
+        $path = "/uploads/markdown/" . date("Y-m-d");
+        if (!is_dir($path)) {
+            mkdir(public_path().$path, 0777, true);
+        }
+
+        //获取文件后缀
+        $ext = $matches[2];
+        //保存图片地址
+        $newName = date('Ymd-His') . '-' . rand(100, 999) . '.' . $ext;
+        //图片保存位置
+        $savePath = $path."/".$newName;
+
+
+        //去掉base64头部标识
+        $base64_content = substr(strstr($base64Img, ','), 1);
+        $img = base64_decode($base64_content);
+
+        //移动图片到指定文件夹
+        if (!file_put_contents(public_path().$savePath, $img)) {
+            return $this->arrayData('10005', '图片保存失败');
+        } else {
+            return $this->jsonSuccessData($savePath); //返回保存的相对路径
+        }
+
+        //对图片进行压缩
+        //压缩图片
+        /*        $img = Image::make($img);
+                $width = $img->width() / 2.5;
+                $height = $img->height() / 2.5;
+                $img->resize($width, $height);
+                $img = $img->encode('jpg');*/
+        //$rootPathdds = Image::make($img)->resize(500, 500);
+        //给压缩后的图片起个新名字
+        //$imgNames = "123".time().rand(10000,99999).'.jpg';
+        //$a = public_path()."/uploads/transitImg/".$imgNames;
+        //保存到指定文件夹
+        //$rootPathdds->save($a);
+        //保存为字节流的方式
+        //$img =  $img->encode('jpg');
     }
 }
