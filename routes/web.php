@@ -93,6 +93,11 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
             });
 
             Route::get('index', 'Articles\ArticlesController@index')->name('articles.index');
+            Route::get('add', 'Articles\ArticlesController@add')->name('articles.add');
+            Route::post('addPost', 'Articles\ArticlesController@addPost')->name('articles.addPost');
+            Route::get('detail/{article}', 'Articles\ArticlesController@detail')->name('articles.detail');
+            Route::get('edit/{article}', 'Articles\ArticlesController@edit')->name('articles.edit');
+            Route::post('editPost', 'Articles\ArticlesController@editPost')->name('articles.editPost');
         });
 
 

@@ -97,7 +97,7 @@
                         </div>
                         <div class="form-group">
                             <span style="padding:0 15px 0 15px;">logo:</span>
-                            <div id="preImg">
+                            <div id="preImg" class="cover_preImg">
                                 <img id="imghead" class="preview" src="{{URL::asset('/images/photo_icon.png')}}"  onclick="$('#previewImg').click();">
                             </div>
                             <input type="file" name="imgfile" onchange="previewImage(this)" style="display: none;" id="previewImg">

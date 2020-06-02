@@ -64,8 +64,8 @@
                 <div class="ibox-content">
                     <div class="file-manager">
                         <form class="form-group form-inline" method="get" action="{{route('archives.index')}}">
-                            <input type="text" value="{{$title}}" placeholder="请输入标题名称" name="title" class="form-control" style="width:190px;border-radius:40px;height: 28px;">
-                            <i class="fa fa-search" style="font-size:initial"></i>
+                            <input type="text" value="{{$title}}" placeholder="请输入标题名称" name="title" class="form-control" style="width:100%;border-radius:40px;height: 28px;">
+                            {{--<i class="fa fa-search" style="font-size:initial"></i>--}}
                         </form>
                         <h5>显示：<a href="{{route('archives.index')}}" class="file-control active">所有</a></h5>
 
@@ -89,9 +89,11 @@
                         </ul>
                         <h5 class="tag-title">标签</h5>
                         <ul class="tag-list" style="padding: 0">
-                            <li><a href="file_manager.html">爱人</a>
+                            <li>
+                                <a href="{{route('archives.index', ['type'=> $typeId, 'status'=>1 ])}}" @if($status == 1) style="color: red;" @endif>已发布</a>
                             </li>
-                            <li><a href="file_manager.html">工作</a>
+                            <li>
+                                <a href="{{route('archives.index', ['type'=> $typeId, 'status'=>2])}}" @if($status == 2) style="color: red;" @endif>草稿</a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -125,6 +127,10 @@
                                 <div class="col-md-12">
                                     <a class="btn btn-primary btn-xs" href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">详情</a>
                                     <a class="btn btn-white btn-xs J_menuItem"  data-index="index_v1.html" href="{{route('archives.edit',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">编辑</a>
+                                    <div class="stat-percent" style="padding-top:3px;">
+                                        <span style="font-size: 12px;color: rgba(96,104,101,0.57);margin-top: 20px;">发布中</span>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -138,7 +144,7 @@
                 </div>
             </div>
             <div class="div_footer" style="text-align: center;position:fixed; bottom:0;">
-                {{ $archivesList->appends(['type'=>$typeId])->links() }}
+                {{ $archivesList->appends(['type'=>$typeId, 'status'=>$status])->links() }}
             </div>
         </div>
     </div>

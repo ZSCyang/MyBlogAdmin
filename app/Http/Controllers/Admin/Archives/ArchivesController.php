@@ -21,10 +21,18 @@ class ArchivesController extends Controller
         $this->dictionariesRepository = $dictionariesRepository;
     }
 
+    /**
+     * 博文列表页
+     * Author jintao.yang
+     * @param Request $request
+     * @param Archive $archive
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request, Archive $archive)
     {
         $typeId = $request->input('type');
         $title = $request->input('title');
+        $status = $request->input('status');
         $archivesList = $archive->where(function ($query) use ($typeId, $title) {
             if (!empty($typeId)) {
                 $query->where('type', $typeId);
@@ -33,14 +41,25 @@ class ArchivesController extends Controller
                 $query->where('title', 'like', "%$title%");
             }
         })
+        ->where(function ($query) use ($status) {
+            if (!empty($status)) {
+                $query->where('status', $status);
+            }
+        })
         ->orderby('created_at', 'desc')
         ->paginate(2);
 
         $typeList = $this->dictionariesRepository->getListByType(1);
-        return view('admin.archives.index', compact('archivesList', 'typeList', 'typeId', 'title'));
+        return view('admin.archives.index', compact('archivesList', 'typeList', 'typeId', 'title', 'status'));
     }
 
 
+    /**
+     * 提交博文
+     * Author jintao.yang
+     * @param ArchiveRequest $request
+     * @return string
+     */
     public function addPost(ArchiveRequest $request)
     {
         $data = $request->all();
@@ -53,11 +72,24 @@ class ArchivesController extends Controller
     }
 
 
+    /**
+     * 提交博文页面
+     * Author jintao.yang
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function add()
     {
         return view('admin.archives.add');
     }
 
+
+    /**
+     * 博文详情
+     * Author jintao.yang
+     * @param Archive $archive
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function detail(Archive $archive, Request $request)
     {
         $typeId = $request->input('type');
@@ -66,6 +98,13 @@ class ArchivesController extends Controller
         return view('admin.archives.detail', compact('typeId', 'title', 'typeList', 'archive'));
     }
 
+    /**
+     * 博文编辑页面
+     * Author jintao.yang
+     * @param Archive $archive
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(Archive $archive, Request $request)
     {
         $typeId = $request->input('type');
@@ -75,6 +114,12 @@ class ArchivesController extends Controller
     }
 
 
+    /**
+     * 提交编辑博文
+     * Author jintao.yang
+     * @param ArchiveRequest $request
+     * @return string
+     */
     public function editPost(ArchiveRequest $request)
     {
         $data = $request->all();

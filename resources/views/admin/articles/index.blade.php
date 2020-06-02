@@ -1,5 +1,6 @@
 @extends('admin.layouts.layout')
 @section('css')
+
     <style>
         .file-name1{
             color: #393939;
@@ -46,6 +47,14 @@
             margin-bottom:16px;
         }
 
+
+        .div_footer {
+            width: 90%;
+            position: absolute;
+            bottom: 0;
+            height: 50px;
+        }
+
     </style>
 @endsection
 @section('content')
@@ -54,31 +63,37 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="file-manager">
-                        <form class="form-group form-inline" >
-                            <input type="text" value="" placeholder="请输入校长名称" name="headmaster" class="form-control" style="width:190px;border-radius:40px;height: 28px;">
-                            <i class="fa fa-search" style="font-size:initial"></i>
+                        <form class="form-group form-inline" method="get" action="{{route('archives.index')}}">
+                            <input type="text" value="{{$title}}" placeholder="请输入标题名称" name="title" class="form-control" style="width:100%;border-radius:40px;height: 28px;">
+                            {{--<i class="fa fa-search" style="font-size:initial"></i>--}}
                         </form>
-                        <h5>显示：<a href="#" class="file-control active">所有</a></h5>
+                        <h5>显示：<a href="{{route('archives.index')}}" class="file-control active">所有</a></h5>
 
                         <div class="hr-line-dashed"></div>
                         <h5>文件夹</h5>
                         <ul class="folder-list" style="padding: 0">
-                            <li>
-                                <a href="file_manager.html">
-                                    <i class="fa fa-folder"></i> Mysql
-                                    <span class="label label-danger pull-right">2</span>
-                                </a>
-                            </li>
-                            <li><a href="file_manager.html"><i class="fa fa-folder"></i> PHP</a>
-                            </li>
-                            <li><a href="file_manager.html"><i class="fa fa-folder"></i> Linux</a>
-                            </li>
+                            @foreach($typeList as $type)
+                                <li>
+                                    @if($type->id == $typeId)
+                                        <div style="z-index:0;background: #eae9e9;">
+                                            @else
+                                                <div>
+                                                    @endif
+                                                    <a href="{{route('archives.index', ['type'=> $type->id])}}">
+                                                        <i class="fa fa-folder"></i> {{ $type->name }}
+                                                        <span class="label label-danger pull-right">2</span>
+                                                    </a>
+                                                </div>
+                                </li>
+                            @endforeach
                         </ul>
                         <h5 class="tag-title">标签</h5>
                         <ul class="tag-list" style="padding: 0">
-                            <li><a href="file_manager.html">爱人</a>
+                            <li>
+                                <a href="{{route('archives.index', ['type'=> $typeId, 'status'=>1 ])}}" @if($status == 1) style="color: red;" @endif>已发布</a>
                             </li>
-                            <li><a href="file_manager.html">工作</a>
+                            <li>
+                                <a href="{{route('archives.index', ['type'=> $typeId, 'status'=>2])}}" @if($status == 2) style="color: red;" @endif>草稿</a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -87,186 +102,52 @@
             </div>
         </div>
         <div class="col-sm-10 animated fadeInRight">
-            <div class="row">
+            <div class="row" style="height: 750px;">
                 <div class="col-sm-12">
-                    <div class="file-box">
-                        <div class="ibox-content">
+                    @if(count($archivesList) > 0)
+                        @foreach($archivesList as $archive)
+                            <div class="file-box">
+                                <div class="ibox-content">
 
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP,有时候这里是两Nginx支持PHP,有时候这里是两</span>
-                                </a>
-                            </div>
+                                    <div class="title_name">
+                                        <a href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}" class="btn-link">
+                                            <span class="file-name1">{{ $archive->title }}</span>
+                                        </a>
+                                    </div>
 
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
+                                    <div class="small m-b-xs">
+                                        <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> {{ $archive->created_at }}</span>
+                                    </div>
 
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
-                            </div>
+                                    <div class="note-abstract">
+                                        <span>{{ $archive->introduction }}</span>
+                                    </div>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-primary btn-xs" href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">详情</a>
+                                            <a class="btn btn-white btn-xs J_menuItem"  data-index="index_v1.html" href="{{route('archives.edit',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">编辑</a>
+                                            <div class="stat-percent" style="padding-top:3px;">
+                                                <span style="font-size: 12px;color: rgba(96,104,101,0.57);margin-top: 20px;">发布中</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        @endforeach
+                    @else
+                        <div style="text-align: center;">
+                            <span style="color: red;">没有搜索到您想要的东西哦~~~</span>
                         </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP,有时候这里是两Nginx支持PHP,有时候这里是两</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">PHP+Redis 自动关闭订单或者自动完成订单</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 </span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="file-box">
-                        <div class="ibox-content">
-
-                            <div class="title_name">
-                                <a href="article.html" class="btn-link">
-                                    <span class="file-name1">Nginx支持PHP,有时候这里是两Nginx支持PHP,有时候这里是两</span>
-                                </a>
-                            </div>
-
-                            <div class="small m-b-xs">
-                                <span><img src="{{URL::asset('/images/logo/php.png')}}" style="width: 20px;"/> </span> <span class="text-muted"><i class="fa fa-clock-o"></i> 2020-05-13</span>
-                            </div>
-
-                            <div class="note-abstract">
-                                <span>就算你敢带着 Apple Watch 下水游泳，它也不能记录你游了多少圈。 夏天刚来时就不停地听到有人提起“有没有在我游泳的时候可以帮忙数圈的时候可以帮忙数圈</span>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <button class="btn btn-primary btn-xs" type="button">详情</button>
-                                    <button class="btn btn-white btn-xs" type="button">编辑</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endif
                 </div>
+            </div>
+            <div class="div_footer" style="text-align: center;position:fixed; bottom:0;">
+                {{ $archivesList->appends(['type'=>$typeId, 'status'=>$status])->links() }}
             </div>
         </div>
     </div>
+
 @endsection
 

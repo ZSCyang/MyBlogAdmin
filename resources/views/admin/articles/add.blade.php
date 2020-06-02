@@ -1,37 +1,69 @@
 @extends('admin.layouts.layout')
 @section('css')
     <link rel="stylesheet" href="{{URL::asset('/admin/css/markdown/editormd.css')}}" />
+    <link href="{{loadEdition('/admin/css/upload/uploadPic.css')}}" rel="stylesheet">
 @endsection
 @section('content')
     <meta name="_token" content="{{ csrf_token() }}"/>
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox-title">
-                <h5>博文管理 > <span class="current_nav">添加博文</span></h5>
+                <h5>杂文管理 > <span class="current_nav">添加杂文</span></h5>
                 <div class="ibox-tools" style="margin-top:-5px;">
                     <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>刷新</button>
                 </div>
             </div>
             <div class="ibox-content">
-                <form onsubmit="return false;" id="form_archives">
+                <form onsubmit="return false;" id="form_articles">
                     {!! csrf_field() !!}
                     <div class="col-sm-12">
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">标题：</label>
                                 <div class="input-group col-sm-6">
-                                    <input type="text" class="form-control col-sm-4" name="title" value="" required data-msg-required="请输入网站名称">
+                                    <input type="text" class="form-control col-sm-4" name="title" value="" required placeholder="请输入网站名称">
                                 </div>
                             </div>
+
                             <div class="hr-line-dashed m-t-sm m-b-sm"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">简介：</label>
                                 <div class="input-group col-sm-2">
-                                    <textarea name="introduction" cols="51" rows="5" required></textarea>
+                                    <textarea name="introduction" cols="51" rows="5" required placeholder="文章简介"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed m-t-sm m-b-sm"></div>
+                            <div class="form-inline">
+                                <label class="col-sm-2 control-label">地点：</label>
+                                <div class="form-group" style="margin:0">
+                                    <div class="form-inline">
+                                        <div id="distpicker4">
+                                            <div class="form-group">
+                                                <label class="sr-only" for="province9">Province</label>
+                                                <select class="form-control" id="province9" name="province"></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="city9">City</label>
+                                                <select class="form-control" id="city9" name="city"></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="sr-only" for="district9">District</label>
+                                                <select class="form-control" id="district9" name="township"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group m-t-sm m-b-sm">
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="input-group col-sm-5">
+                                    <input type="text" class="form-control col-sm-4" name="address" value="" required placeholder="详细地址">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-5">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">类型：</label>
                                 <div class="input-group col-sm-2">
@@ -50,6 +82,18 @@
                                         <option value="1">仅自己可见</option>
                                         <option value="2" selected>对外开放</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed m-t-sm m-b-sm"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">封面图：</label>
+                                <div class="input-group col-sm-2">
+                                    <div id="preImg" class="article_preImg">
+                                        <img id="imghead" class="preview" src="{{URL::asset('/images/photo_icon.png')}}" onclick="$('#previewImg').click();">
+                                    </div>
+                                    <input type="file" name="imgfile" onchange="previewImage(this)" style="display: none;" id="previewImg">
+                                    <input type="hidden" name="imgStatus" id="imgStatus" value="1">
                                 </div>
                             </div>
                         </div>
@@ -72,9 +116,6 @@
                         <div style="margin:0 auto;text-align:center;">
                             <input type="submit" class="btn btn-white" name="draft" value="存为草稿" />
                             <input type="submit" class="btn btn-primary" name="publish" value="立即发布" />
-                            {{--<button class="btn btn-white" type="submit" value="draft"><i class="fa fa-pencil"></i>&nbsp;<span>存为草稿</span></button>
-                            <button class="btn btn-primary" type="submit" value="publish"><i class="fa fa-check"></i>&nbsp;<span>发布</span></button>--}}
-                            {{--<button class="btn btn-white" type="reset" ><i class="fa fa-repeat"></i> 重 置</button>--}}
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -109,9 +150,9 @@
 
     <script>
         var submitActor = null;
-        var $submitActors = $("#form_archives").find('input[type=submit]');
+        var $submitActors = $("#form_articles").find('input[type=submit]');
         //编辑网站基础信息
-        $('#form_archives').submit(function (event) {
+        $('#form_articles').submit(function (event) {
             if (null === submitActor) {
                 submitActor = $submitActors[0];
             }
@@ -123,6 +164,10 @@
                 data.append('status', 2);
             }
 
+            //封面图
+            var base64Img = $("#imghead")[0].src;
+            data.append('base64Img', base64Img);
+
             $("#btn-submit").attr("disabled", "disabled");
             var index = layer.load(0, {//0代表加载的风格，支持0-2
                 // shade: false,
@@ -130,7 +175,7 @@
                 shadeClose: false, //是否开启遮罩关闭
             });
 
-            var url = "{{route('archives.addPost')}}";
+            var url = "{{route('articles.addPost')}}";
             var title = "添加成功";
 
             $.ajax({
@@ -241,5 +286,11 @@
             paste(event);
         })
     </script>
+
+    <script src="{{URL::asset('/admin/js/distpicker/distpicker.data.js')}}"></script>
+    <script src="{{URL::asset('/admin/js/distpicker/distpicker.js')}}"></script>
+    <script src="{{URL::asset('/admin/js/distpicker/main.js')}}"></script>
+
+    <script src="{{URL::asset('/admin/js/upload/uploadPic.js')}}"></script>
 
 @endsection

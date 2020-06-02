@@ -2,15 +2,15 @@
 
 namespace App\Repositories\V1;
 
-use App\Models\Archive;
+use App\Models\Article;
 
-class ArchivesRepository
+class ArticlesRepository
 {
     protected $model;
 
     public function __construct()
     {
-        $this->model = new Archive();
+        $this->model = new Article();
     }
 
     /**
@@ -23,7 +23,7 @@ class ArchivesRepository
     {
 
         $data['content'] = $data['test-editormd'];
-        $data =  $this->model->allowField($data, 'archives');
+        $data =  $this->model->allowField($data, 'articles');
         $this->model->fillable(array_keys($data));
         $this->model->fill($data);
         return $this->model->save();
@@ -33,10 +33,10 @@ class ArchivesRepository
     public function edit($data)
     {
         $data['content'] = $data['test-editormd'];
-        $archive = Archive::find($data['archive_id']);
-        $data =  $archive->allowField($data, 'archives');
-        $archive->fillable(array_keys($data));
-        $archive->fill($data);
-        return $archive->save();
+        $article = Article::find($data['article_id']);
+        $data =  $article->allowField($data, 'article');
+        $article->fillable(array_keys($data));
+        $article->fill($data);
+        return $article->save();
     }
 }
