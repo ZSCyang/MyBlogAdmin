@@ -25,9 +25,7 @@ class CommonController extends Controller
             if ($pic->isValid()) {
                 //存储位置
                 $path = "/uploads/markdown/" . date("Y-m-d");
-                if (!is_dir($path)) {
-                    mkdir(public_path().$path, 0777, true);
-                }
+                $this->mkdirs($path);
                 $newName = date('Ymd-His') . '-' . rand(100, 999) . '.' . $pic->getClientOriginalExtension();
                 //本地保存
                 if ($pic->move(public_path().$path, $newName)) {
@@ -76,9 +74,7 @@ class CommonController extends Controller
 
         //确定保存文件的地址
         $path = "/uploads/markdown/" . date("Y-m-d");
-        if (!is_dir($path)) {
-            mkdir(public_path().$path, 0777, true);
-        }
+        $this->mkdirs($path);
 
         //获取文件后缀
         $ext = $matches[2];
@@ -114,5 +110,17 @@ class CommonController extends Controller
         //$rootPathdds->save($a);
         //保存为字节流的方式
         //$img =  $img->encode('jpg');
+    }
+
+
+    private function mkdirs($dir, $mode = 0777)
+    {
+        if (is_dir($dir) || @mkdir($dir, $mode)) {
+            return true;
+        }
+        if (!mkdirs(dirname($dir), $mode)) {
+            return false;
+        }
+        return @mkdir($dir, $mode);
     }
 }

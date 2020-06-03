@@ -43,7 +43,7 @@ class ArticlesController extends Controller
             ->orderby('created_at', 'desc')
             ->paginate(2);
 
-        $typeList = $this->dictionariesRepository->getListByType(1);
+        $typeList = $this->dictionariesRepository->getListByType(2);
         return view('admin.articles.index', compact('articlesList', 'typeList', 'typeId', 'title', 'status'));
     }
 
@@ -70,22 +70,24 @@ class ArticlesController extends Controller
 
     public function add()
     {
-        return view('admin.articles.add');
+        $typeList = $this->dictionariesRepository->getListByType(2);
+        return view('admin.articles.add', compact('typeList'));
     }
 
     public function detail(Article $article, Request $request)
     {
         $typeId = $request->input('type');
+        $status = $request->input('status');
         $title = $request->input('title');
-        $typeList = $this->dictionariesRepository->getListByType(1);
-        return view('admin.articles.detail', compact('typeId', 'title', 'typeList', 'article'));
+        $typeList = $this->dictionariesRepository->getListByType(2);
+        return view('admin.articles.detail', compact('typeId', 'title', 'typeList', 'article', 'status'));
     }
 
     public function edit(Article $article, Request $request)
     {
         $typeId = $request->input('type');
         $title = $request->input('title');
-        $typeList = $this->dictionariesRepository->getListByType(1);
+        $typeList = $this->dictionariesRepository->getListByType(2);
         return view('admin.articles.edit', compact('typeId', 'title', 'typeList', 'article'));
     }
 
@@ -97,6 +99,19 @@ class ArticlesController extends Controller
         if (empty($data['article_id']) || !is_numeric(strval($data['article_id']))) {
             return $this->jsonData('10005', '参数错误，请刷新后重试');
         }
+
+        //如果图片有修改
+        if ($data['imgStatus'] ==  2) {
+            //上传图片
+            $upload_result = $this->uploadPic($data['base64Img'], 'articles');
+
+            if ($upload_result['code'] == 200) {
+                $data['pic'] = $upload_result['data'];
+            } else {
+                return $this->jsonData('10005', $upload_result['data']);
+            }
+        }
+
         $result = $this->articlesRepository->edit($data);
         if ($result) {
             return $this->jsonSuccessData();

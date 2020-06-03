@@ -4,12 +4,52 @@
     <link href="{{loadEdition('/admin/css/upload/uploadPic.css')}}" rel="stylesheet">
 @endsection
 @section('content')
-    <meta name="_token" content="{{ csrf_token() }}"/>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-2">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="file-manager">
+                        <form class="form-group form-inline" method="get" action="{{route('articles.index')}}">
+                            <input type="text" value="{{$title}}" placeholder="请输入标题名称" name="title" class="form-control" style="width:190px;border-radius:40px;height: 28px;">
+                            <i class="fa fa-search" style="font-size:initial"></i>
+                        </form>
+                        <h5>显示：<a href="{{route('articles.index')}}" class="file-control active">所有</a></h5>
+
+                        <div class="hr-line-dashed"></div>
+                        <h5>文件夹</h5>
+                        <ul class="folder-list" style="padding: 0">
+                            @foreach($typeList as $type)
+                                <li>
+                                    @if($type->id == $typeId)
+                                    <div style="z-index:0;background: #eae9e9;">
+                                    @else
+                                    <div>
+                                        @endif
+                                        <a href="{{route('articles.index', ['type'=> $type->id])}}">
+                                            <i class="fa fa-folder"></i> {{ $type->name }}
+                                            <span class="label label-danger pull-right">2</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <h5 class="tag-title">标签</h5>
+                        <ul class="tag-list" style="padding: 0">
+                            <li><a href="file_manager.html">爱人</a>
+                            </li>
+                            <li><a href="file_manager.html">工作</a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10">
             <div class="ibox-title">
-                <h5>杂文管理 > <span class="current_nav">添加杂文</span></h5>
+                <h5>杂文管理 > 编辑杂文 > <span class="current_nav">{{ $article->title }}</span></h5>
                 <div class="ibox-tools" style="margin-top:-5px;">
+                    <a class="menuid btn btn-primary btn-sm" href="javascript:history.go(-1)">返回</a>
                     <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>刷新</button>
                 </div>
             </div>
@@ -17,11 +57,11 @@
                 <form onsubmit="return false;" id="form_articles">
                     {!! csrf_field() !!}
                     <div class="col-sm-12">
-                        <div class="col-sm-7">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">标题：</label>
                                 <div class="input-group col-sm-6">
-                                    <input type="text" class="form-control col-sm-4" name="title" value="" required placeholder="请输入网站名称">
+                                    <input type="text" class="form-control col-sm-4" name="title" value="{{ $article->title }}" required data-msg-required="请输入网站名称">
                                 </div>
                             </div>
 
@@ -29,7 +69,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">简介：</label>
                                 <div class="input-group col-sm-2">
-                                    <textarea name="introduction" cols="51" rows="5" required placeholder="文章简介"></textarea>
+                                    <textarea name="introduction" cols="51" rows="5" required>{{ $article->introduction }}</textarea>
                                 </div>
                             </div>
 
@@ -41,15 +81,18 @@
                                         <div id="distpicker4">
                                             <div class="form-group">
                                                 <label class="sr-only" for="province9">Province</label>
-                                                <select class="form-control" id="province9" name="province"></select>
+                                                <select class="form-control" id="province9" name="province">
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label class="sr-only" for="city9">City</label>
-                                                <select class="form-control" id="city9" name="city"></select>
+                                                <select class="form-control" id="city9" name="city">
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                 <label class="sr-only" for="district9">District</label>
-                                                <select class="form-control" id="district9" name="township"></select>
+                                                <select class="form-control" id="district9" name="township">
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -59,17 +102,18 @@
                             <div class="form-group m-t-sm m-b-sm">
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="input-group col-sm-5">
-                                    <input type="text" class="form-control col-sm-4" name="address" value="" required placeholder="详细地址">
+                                    <input type="text" class="form-control col-sm-4" name="address" value="{{ $article->address }}" required placeholder="详细地址">
                                 </div>
                             </div>
+
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">类型：</label>
                                 <div class="input-group col-sm-4">
                                     <select class="form-control m-b" id="type" name="type" style="height: 32px;">
                                         @foreach($typeList as $type)
-                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            <option value="{{$type->id}}" @if($type->id == $article->type)selected @endif>{{ $type->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -80,8 +124,8 @@
                                 <label class="col-sm-2 control-label">权限：</label>
                                 <div class="input-group col-sm-4">
                                     <select class="form-control m-b" id="power" name="power" style="height: 32px;">
-                                        <option value="1">仅自己可见</option>
-                                        <option value="2" selected>对外开放</option>
+                                        <option value="1" @if($article->power == 1)selected @endif>仅自己可见</option>
+                                        <option value="2" @if($article->power == 2)selected @endif>对外开放</option>
                                     </select>
                                 </div>
                             </div>
@@ -91,7 +135,7 @@
                                 <label class="col-sm-2 control-label">封面图：</label>
                                 <div class="input-group col-sm-2">
                                     <div id="preImg" class="article_preImg">
-                                        <img id="imghead" class="preview" src="{{URL::asset('/images/photo_icon.png')}}" onclick="$('#previewImg').click();">
+                                        <img id="imghead" class="preview" src="{{ $article->pic }}" onclick="$('#previewImg').click();">
                                     </div>
                                     <input type="file" name="imgfile" onchange="previewImage(this)" style="display: none;" id="previewImg">
                                     <input type="hidden" name="imgStatus" id="imgStatus" value="1">
@@ -101,22 +145,27 @@
                     </div>
 
 
+
                     <div class="col-sm-12">
                         <div class="hr-line-dashed m-t-sm m-b-sm"></div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">博文内容：</label>
+                            <label class="col-sm-2 control-label">杂文内容：</label>
                             <div id="myeditormd" style="z-index: 99999;">
                                 <!-- Tips: Editor.md can auto append a `<textarea>` tag -->
-                                <textarea style="display:none;" name="test-editormd"></textarea>
+                                <textarea style="display:none;" name="test-editormd">{{ $article->content }}</textarea>
                             </div>
                         </div>
                     </div>
 
-
+                    <input type="hidden" name="article_id" id="article_id" value="{{ $article->id }}" />
                     <div class="col-sm-12">
                         <div style="margin:0 auto;text-align:center;">
+                            {{--<button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;草稿</button>--}}
+                            {{--<a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="存为草稿"><i class="fa fa-pencil"></i> 存为草稿</a>--}}
                             <input type="submit" class="btn btn-white" name="draft" value="存为草稿" />
                             <input type="submit" class="btn btn-primary" name="publish" value="立即发布" />
+                            {{--<button class="btn btn-primary" type="submit" id="btn-submit"><i class="fa fa-check"></i>&nbsp;发布</button>--}}
+                            <button class="btn btn-primary" type="reset" onclick="javascript:history.back(-1);"><i class="fa fa-repeat"></i> 返回列表</button>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -148,12 +197,14 @@
             });
         });
     </script>
-
     <script>
+
         var submitActor = null;
         var $submitActors = $("#form_articles").find('input[type=submit]');
+
         //编辑网站基础信息
-        $('#form_articles').submit(function (event) {
+        $('#form_articles').submit(function () {
+
             if (null === submitActor) {
                 submitActor = $submitActors[0];
             }
@@ -176,9 +227,8 @@
                 shadeClose: false, //是否开启遮罩关闭
             });
 
-            var url = "{{route('articles.addPost')}}";
-            var title = "添加成功";
-
+            var url = "{{route('articles.editPost')}}";
+            var title = "修改成功";
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -194,19 +244,28 @@
                     if(data.code == 200){
 
                         swal({
-                            title : "提交成功",
+                            title : "修改成功",
                             text : "请选择接下来的操作？",
                             icon : "success",
                             buttons : {
-                                button : {
-                                    text : "继续添加"
+                                button1 : {
+                                    text : "回到列表页",
+                                    value : true,
+                                },
+                                button2 : {
+                                    text : "继续编辑",
+                                    value : false,
                                 }
                             },
 
-                        }).then(function(value) {   //这里的value就是按钮的value值，只要对应就可以啦{
-                            window.location.reload();
+                        }).then(function(value) {   //这里的value就是按钮的value值，只要对应就可以啦
+                            if (value) {
+                                window.history.back(-1);
+                                //window.location.href = "window.location.go(-1); "
+                            } else {
+                                window.location.reload();
+                            }
                         });
-
 
                     } else if(data.code == 10001) {
                         layer.msg(data.msg);
@@ -231,66 +290,22 @@
 
         });
 
-        $submitActors.click(function(event) {
-            submitActor = this;
-        });
-
-
-        function paste(event) {
-
-            var clipboardData = event.clipboardData;
-            var items, item, types;
-            if (clipboardData) {
-                items = clipboardData.items;
-                if (!items) {
-                    return;
-                }
-                // 保存在剪贴板中的数据类型
-                types = clipboardData.types || [];
-                for (var i = 0; i < types.length; i++) {
-                    if (types[i] === 'Files') {
-                        item = items[i];
-                        break;
-                    }
-                }
-                // 判断是否为图片数据
-                if (item && item.kind === 'file' && item.type.match(/^image\//i)) {
-                    // 读取该图片
-                    var file = item.getAsFile(),
-                        reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = function () {
-                        //前端压缩
-                        $.ajax({
-                            url: "{{route('markdown.uploadBase64')}}",
-                            type: 'post',
-                            data: {
-                                "image_base64": reader.result,
-                                '_token':'{{csrf_token()}}'
-                            },
-                            contentType: 'application/x-www-form-urlencoded;charest=UTF-8',
-                            success: function (data) {
-                                if(data.code == 200){
-                                    var qiniuUrl = '![](' + data.data + ')';
-                                    testEditor.insertValue(qiniuUrl);
-                                }else{
-                                    alert("上传失败");
-                                }
-
-                            }
-                        })
-                    }
-                }
-            }
-        }
-        document.addEventListener('paste', function (event) {
-            paste(event);
-        })
     </script>
+
 
     <script src="{{URL::asset('/admin/js/distpicker/distpicker.data.js')}}"></script>
     <script src="{{URL::asset('/admin/js/distpicker/distpicker.js')}}"></script>
     <script src="{{URL::asset('/admin/js/distpicker/main.js')}}"></script>
+
+    <script>
+        $("#distpicker4").distpicker({
+            province: "{{ $article->province }}",
+            city: "{{ $article->city }}",
+            district: "{{ $article->township }}",
+            autoSelect: true,
+            placeholder: false
+        });
+    </script>
 
     <script src="{{URL::asset('/admin/js/upload/uploadPic.js')}}"></script>
 

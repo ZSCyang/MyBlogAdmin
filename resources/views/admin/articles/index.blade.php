@@ -63,37 +63,37 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="file-manager">
-                        <form class="form-group form-inline" method="get" action="{{route('archives.index')}}">
+                        <form class="form-group form-inline" method="get" action="{{route('articles.index')}}">
                             <input type="text" value="{{$title}}" placeholder="请输入标题名称" name="title" class="form-control" style="width:100%;border-radius:40px;height: 28px;">
                             {{--<i class="fa fa-search" style="font-size:initial"></i>--}}
                         </form>
-                        <h5>显示：<a href="{{route('archives.index')}}" class="file-control active">所有</a></h5>
+                        <h5>显示：<a href="{{route('articles.index')}}" class="file-control active">所有</a></h5>
 
                         <div class="hr-line-dashed"></div>
                         <h5>文件夹</h5>
                         <ul class="folder-list" style="padding: 0">
                             @foreach($typeList as $type)
                                 <li>
-                                    @if($type->id == $typeId)
-                                        <div style="z-index:0;background: #eae9e9;">
-                                            @else
-                                                <div>
-                                                    @endif
-                                                    <a href="{{route('archives.index', ['type'=> $type->id])}}">
-                                                        <i class="fa fa-folder"></i> {{ $type->name }}
-                                                        <span class="label label-danger pull-right">2</span>
-                                                    </a>
-                                                </div>
+                                @if($type->id == $typeId)
+                                    <div style="z-index:0;background: #eae9e9;">
+                                 @else
+                                    <div>
+                                @endif
+                                        <a href="{{route('articles.index', ['type'=> $type->id])}}">
+                                            <i class="fa fa-folder"></i> {{ $type->name }}
+                                            <span class="label label-danger pull-right">2</span>
+                                        </a>
+                                    </div>
                                 </li>
                             @endforeach
                         </ul>
                         <h5 class="tag-title">标签</h5>
                         <ul class="tag-list" style="padding: 0">
                             <li>
-                                <a href="{{route('archives.index', ['type'=> $typeId, 'status'=>1 ])}}" @if($status == 1) style="color: red;" @endif>已发布</a>
+                                <a href="{{route('articles.index', ['type'=> $typeId, 'status'=>1 ])}}" @if($status == 1) style="color: red;" @endif>已发布</a>
                             </li>
                             <li>
-                                <a href="{{route('archives.index', ['type'=> $typeId, 'status'=>2])}}" @if($status == 2) style="color: red;" @endif>草稿</a>
+                                <a href="{{route('articles.index', ['type'=> $typeId, 'status'=>2])}}" @if($status == 2) style="color: red;" @endif>草稿</a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -104,13 +104,13 @@
         <div class="col-sm-10 animated fadeInRight">
             <div class="row" style="height: 750px;">
                 <div class="col-sm-12">
-                    @if(count($archivesList) > 0)
-                        @foreach($archivesList as $archive)
+                    @if(count($articlesList) > 0)
+                        @foreach($articlesList as $archive)
                             <div class="file-box">
                                 <div class="ibox-content">
 
                                     <div class="title_name">
-                                        <a href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}" class="btn-link">
+                                        <a href="{{route('articles.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}" class="btn-link">
                                             <span class="file-name1">{{ $archive->title }}</span>
                                         </a>
                                     </div>
@@ -125,8 +125,8 @@
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a class="btn btn-primary btn-xs" href="{{route('archives.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">详情</a>
-                                            <a class="btn btn-white btn-xs J_menuItem"  data-index="index_v1.html" href="{{route('archives.edit',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title])}}">编辑</a>
+                                            <a class="btn btn-primary btn-xs" href="{{route('articles.detail',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title, 'status'=> $status])}}">详情</a>
+                                            <a class="btn btn-white btn-xs J_menuItem"  data-index="index_v1.html" href="{{route('articles.edit',['id'=>$archive->id, 'type'=>$typeId, 'title'=>$title, 'status'=> $status])}}">编辑</a>
                                             <div class="stat-percent" style="padding-top:3px;">
                                                 <span style="font-size: 12px;color: rgba(96,104,101,0.57);margin-top: 20px;">发布中</span>
                                             </div>
@@ -144,7 +144,7 @@
                 </div>
             </div>
             <div class="div_footer" style="text-align: center;position:fixed; bottom:0;">
-                {{ $archivesList->appends(['type'=>$typeId, 'status'=>$status])->links() }}
+                {{ $articlesList->appends(['type'=>$typeId, 'status'=>$status])->links() }}
             </div>
         </div>
     </div>

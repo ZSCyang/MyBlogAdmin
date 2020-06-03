@@ -34,7 +34,7 @@ class ArticlesRepository
     {
         $data['content'] = $data['test-editormd'];
         $article = Article::find($data['article_id']);
-        $data =  $article->allowField($data, 'article');
+        $data =  $article->allowField($data, 'articles');
         $article->fillable(array_keys($data));
         $article->fill($data);
         return $article->save();
