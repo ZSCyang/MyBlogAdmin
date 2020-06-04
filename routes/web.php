@@ -114,6 +114,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
         //我的信息模块
         Route::group(['prefix' => 'about'], function () {
             Route::get('index', 'About\AboutController@index')->name('about.index');
+            Route::post('editPost', 'About\AboutController@editPost')->name('about.editPost');
         });
 
         //字典管理

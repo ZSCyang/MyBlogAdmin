@@ -219,24 +219,22 @@
                         swal({
                             title: title,
                             text: "页面将会自动跳转，请等待",
+                            icon : "success",
                             showConfirmButton: false,
-                            type: "success",
                             showCancelButton: false,
-                            timer: 2000
-                        }, function () {
+                            timer: 3000
+                        }).then(
                             window.location.reload()
-                        })
+                        );
                     }else if(data.code == 10001){
                         layer.msg(data.msg);
                     }else{
                         swal({
                             title: "操作失败，请刷新重试!",
-                            text: data.message,
-                            showConfirmButton: false,
-                            type: "error",
-                            showCancelButton: false,
-                            timer: 2000
-                        })
+                            text: data.msg,
+                            icon: "error",
+                            timer: 3000
+                        });
                     }
                 },
                 error : function (msg) {

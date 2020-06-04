@@ -273,11 +273,9 @@
                         swal({
                             title: "操作失败，请刷新重试!",
                             text: data.msg,
-                            showConfirmButton: false,
-                            type: "error",
-                            showCancelButton: false,
-                            timer: 2000
-                        })
+                            icon: "error",
+                            timer: 3000
+                        });
                     }
                 },
                 error : function (msg) {
