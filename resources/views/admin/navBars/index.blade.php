@@ -1,4 +1,6 @@
 @extends('admin.layouts.layout')
+@section('css')
+@endsection
 @section('content')
     <div class="row">
         <div class="col-sm-12">
@@ -106,7 +108,6 @@
 @endsection
 
 @section('js')
-
     <script>
         //添加导航栏页面
         function addNavbar() {
@@ -185,7 +186,7 @@
                     layer.close(index); // 关闭当前加载提示
                     $("#btn-submit").removeAttr("disabled");//释放按钮
                     if(data.code == 200){
-                        swal({
+                        swal.fire({
                             title: title,
                             text: "页面将会自动跳转，请等待",
                             icon : "success",
@@ -193,12 +194,14 @@
                             showCancelButton: false,
                             timer: 3000
                         }).then(
-                            window.location.reload()
+                            setTimeout(function() {
+                                window.location.reload();
+                            },2000)
                         );
                     }else if(data.code == 10001){
                         layer.msg(data.msg);
                     }else{
-                        swal({
+                        swal.fire({
                             title: "操作失败，请刷新重试!",
                             text: data.msg,
                             icon: "error",

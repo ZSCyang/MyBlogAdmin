@@ -14,7 +14,7 @@
     <link href="{{loadEdition('/admin/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/animate.min.css')}}" rel="stylesheet">
     <link href="{{loadEdition('/admin/css/style.min.css')}}" rel="stylesheet">
-    <link href="{{URL::asset('/admin/css/plugins/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('/admin/css/plugins/sweetalert/sweetalert2.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/admin/css/common.css')}}" rel="stylesheet">
     @yield('css')
 </head>
@@ -25,10 +25,10 @@
 </div>
 <script src="{{loadEdition('/js/jquery.min.js')}}"></script>
 <script src="{{loadEdition('/admin/js/bootstrap.min.js')}}"></script>
-{{--<script src="{{loadEdition('/js/common.js')}}"></script>--}}
+<script src="{{URL::asset('/admin/js/common.js')}}"></script>
 <script src="{{URL::asset('/js/plugins/layer/layer.min.js')}}"></script>
 {{--<script src="{{URL::asset('/js/plugins/sweetalert/sweetalert.min.js')}}"></script>--}}
-<script src="{{URL::asset('/js/plugins/sweetalert/sweetalert2.min.js')}}"></script>
+<script src="{{URL::asset('/admin/js/plugins/sweetalert/sweetalert2.min.js')}}"></script>
 <script>
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>

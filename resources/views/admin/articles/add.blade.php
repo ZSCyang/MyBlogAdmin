@@ -193,25 +193,24 @@
                     $("#btn-submit").removeAttr("disabled");//释放按钮
                     if(data.code == 200){
 
-                        swal({
+                        swal.fire({
                             title : "提交成功",
                             text : "请选择接下来的操作？",
                             icon : "success",
-                            buttons : {
-                                button : {
-                                    text : "继续添加"
-                                }
-                            },
+                            showCancelButton: false,
+                            confirmButtonText: '继续添加'
 
                         }).then(function(value) {   //这里的value就是按钮的value值，只要对应就可以啦{
-                            window.location.reload();
+                            setTimeout(function() {
+                                window.location.reload();
+                            },2000)
                         });
 
 
                     } else if(data.code == 10001) {
                         layer.msg(data.msg);
                     } else {
-                        swal({
+                        swal.fire({
                             title: "操作失败，请刷新重试!",
                             text: data.msg,
                             showConfirmButton: false,

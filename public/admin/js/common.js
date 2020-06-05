@@ -37,69 +37,70 @@ function del_btn(url) {
     });
 }
 
-
 /**
  * 删除提示统一方法
  * @param routeUrl
  * @param title
  */
 function delete_ajax(routeUrl, title = '您确定要删除这条信息吗') {
-    swal({
+    swal.fire({
         title: title,
         text: "删除后将无法恢复，请谨慎操作！",
-        type: "warning",
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "删除",
+        //confirmButtonColor: '#3085d6',
+        //cancelButtonColor: '#d33',
+        confirmButtonText: '删除',
         cancelButtonText: "取消",
         closeOnConfirm: false
-    }, function () {
-        var index = layer.load(0, {
-            shade: 0.3
-        });
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: 'GET',
-            dataType: "json",
-            url: routeUrl,
-            success : function(data) {
-                console.log(data);
-                layer.close(index);
-                if (data.code == 200) {
-                    swal({
-                        title: "删除成功!",
-                        text: "页面将会自动跳转，请等待",
-                        showConfirmButton: false,
-                        type: "success",
-                        showCancelButton: false,
-                        timer: 2000
-                    }, function () {
-                        window.location.reload()
-                    })
-                } else {
-                    swal({
+    }).then((result) => {
+        if (result.value) {
+            var index = layer.load(0, {
+                shade: 0.3
+            });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'GET',
+                dataType: "json",
+                url: routeUrl,
+                success : function(data) {
+                    console.log(data);
+                    layer.close(index);
+                    if (data.code == 200) {
+                        swal.fire({
+                            title: "删除成功",
+                            text: "页面将会自动跳转，请等待",
+                            icon : "success",
+                            showConfirmButton: false,
+                            showCancelButton: false,
+                            timer: 30000
+                        }).then(
+                            setTimeout(function() {
+                                window.location.reload();
+                            },2000)
+                        );
+                    } else {
+                        swal.fire({
+                            title: "操作失败，请刷新重试!",
+                            text: data.msg,
+                            icon: "error",
+                            timer: 3000
+                        });
+                    }
+                },
+                error : function (msg) {
+                    layer.close(index);
+                    swal.fire({
                         title: "删除失败!",
-                        text: data.msg,
-                        showConfirmButton: false,
-                        type: "error",
-                        showCancelButton: false,
-                        timer: 2000
-                    })
+                        text: "id不存在或已被删除",
+                        icon: "error",
+                        timer: 3000
+                    });
                 }
-            },
-            error : function (msg) {
-                layer.close(index);
-                swal({
-                    title: "删除失败!",
-                    text: 'id不存在或已被删除',
-                    showConfirmButton: false,
-                    type: "error",
-                    showCancelButton: false,
-                    timer: 2000
-                })
-            }
-        });
-    });
+            });
+        }
+    })
 }
+

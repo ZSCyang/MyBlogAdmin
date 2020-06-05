@@ -111,6 +111,13 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'], function () {
             Route::post('editPost', 'Archives\ArchivesController@editPost')->name('archives.editPost');
         });
 
+        //接口管理
+        Route::group(['prefix' => 'ports'], function () {
+            Route::get('index', 'Ports\PortsController@index')->name('ports.index');
+            Route::post('addPost', 'Ports\PortsController@addPost')->name('ports.addPost');
+            Route::post('editPost', 'Ports\PortsController@editPost')->name('ports.editPost');
+        });
+
         //我的信息模块
         Route::group(['prefix' => 'about'], function () {
             Route::get('index', 'About\AboutController@index')->name('about.index');

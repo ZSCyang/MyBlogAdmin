@@ -2,9 +2,18 @@
 @section('css')
 <style>
 
-    .editormd-html-preview ol.linenums li code,.editormd-preview-container ol.linenums li code{border:none;background:0 0;padding:0;white-space: nowrap}
-    .editormd-html-preview ol.linenums li code span[class="pln"]:first-child{
-       display: inline-block;width: 24px;
+    .editormd-html-preview ol.linenums li code,.editormd-preview-container ol.linenums li code{
+        /*border:none;background:0 0;padding:0;white-space: nowrap*/
+        word-break: break-all;
+        white-space: pre;
+        overflow-x: scroll;
+        overscroll-behavior-x: contain;
+    }
+    .editormd-preview-container pre.prettyprint, .editormd-html-preview pre.prettyprint{
+        word-break: break-all;
+        white-space: pre;
+        overflow-x: scroll;
+        overscroll-behavior-x: contain;
     }
     .editormd-html-preview ol.linenums,.editormd-preview-container ol.linenums{min-width: 100%;color:#999;padding-left:2.5em;display: inline-block}
 

@@ -190,34 +190,27 @@
                     $("#btn-submit").removeAttr("disabled");//释放按钮
                     if(data.code == 200){
 
-                        swal({
+                        swal.fire({
                             title : "修改成功",
                             text : "请选择接下来的操作？",
                             icon : "success",
-                            buttons : {
-                                button1 : {
-                                    text : "回到列表页",
-                                    value : true,
-                                },
-                                button2 : {
-                                    text : "继续编辑",
-                                    value : false,
-                                }
-                            },
+                            showCancelButton: true,
+                            cancelButtonText: "继续编辑",
+                            confirmButtonText: '回到列表页'
 
-                        }).then(function(value) {   //这里的value就是按钮的value值，只要对应就可以啦
-                            if (value) {
+                        }).then((result) => {
+                            if (result.value) {
                                 window.history.back(-1);
-                                //window.location.href = "window.location.go(-1); "
                             } else {
-                                window.location.reload();
+                                setTimeout(function() {
+                                    window.location.reload();
+                                },2000)
                             }
                         });
-
                     } else if(data.code == 10001) {
                         layer.msg(data.msg);
                     } else {
-                        swal({
+                        swal.fire({
                             title: "操作失败，请刷新重试!",
                             text: data.msg,
                             icon: "error",
